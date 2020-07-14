@@ -1,5 +1,5 @@
 ---
-- name: Install tmux
+- name: install tmux
   yum:
     name: 'tmux'
     state: present

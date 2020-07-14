@@ -1,6 +1,6 @@
 ---
 - name: poop muhself
-  yum:
-    name: '*'
-    state: latest
-  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  hosts: localhost
+  become: yes
+  roles:
+    - testing

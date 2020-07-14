@@ -7,5 +7,3 @@
     validate_certs: no
     name: "{{ new_vm_name }}"
     state: poweredon
-    delegate_to: localhost
-    register: vm_power_state

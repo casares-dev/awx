@@ -3,60 +3,65 @@
 - hosts: pxe
   become: true
   roles:
+    - common-nix
     - pxeboot
 
 - hosts: file_servers
   become: true
   roles:
+    - common-nix
     - fs
 
 - hosts: domain_controllers
   become: true
   roles:
+   - common-win
    - dc
 
 - hosts: nixctl
   become: true
   roles:
+    - common-nix
     - nixctl
 
 - hosts: winctl
   become: true
   roles:
+    - common-win
     - winctl
 
 - hosts: okd_hosts
   become: true
   roles:
+    - common-nix
     - okd_k8s
 
 - hosts: emulators
   become: true
   roles:
+    - common-nix
     - retroemu
 
 - hosts: freebsd
   become: true
   roles:
+    - common-nix
     - freebsd
 
 - hosts: kali
   become: true
   roles:
+    - common-nix
     - security
 
 - hosts: tam
   become: true
   roles:
+    - common-nix
     - torrent
 
 - hosts: rhcsa_lab
   become: true
   roles:
     - rhcsa
-
-- hosts: all
-  become: true
-  roles:
-    - update
-  
+    - common-nix

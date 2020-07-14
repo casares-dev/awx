@@ -1,0 +1,25 @@
+---
+- name: Update all EL packages & enable EPEL
+  yum:
+    name: '*'
+    state: latest
+    enablerepo: "epel"
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+- name: Update all Debian-based packages
+  apt:
+    name: '*'
+    state: latest
+  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+  
+- name: Install common EL packages
+  yum:
+    name: "{{ common_pkgs }}"
+    state: latest
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+- name: Install common Debian packages
+  apt:
+    name: "{{ common_pkgs }}"
+    state: latest
+  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'

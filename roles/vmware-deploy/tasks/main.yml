@@ -7,7 +7,7 @@
     validate_certs: no
     #folder: "/{{ esxi_datastore }}/{{ new_vm_name }}"
     name: "{{ new_vm_name }}"
-    state: poweredon
+    state: present
     guest_id: centos64Guest
     # This is hostname of particular ESXi server on which user wants VM to be deployed
     esxi_hostname: "{{ esxi_hostname }}"
@@ -21,9 +21,32 @@
       scsi: paravirtual
     networks:
     - name: VM Network
-      ip: "{{ new_vm_ip }}"
-      netmask: 255.255.0.0
       device_type: vmxnet3
-    wait_for_ip_address: yes
   delegate_to: localhost
   register: deploy_vm
+
+- name: change vm boot boot order
+  vmware_guest_boot_options:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: no
+    name: "{{ new_vm_name }}"
+    boot_order:
+      - ethernet
+      - cdrom
+      - disk
+      - floppy
+    delegate_to: localhost
+    register: vm_boot_order
+
+- name: power on new vm_boot_order
+  vmware_guest:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: no
+    name: "{{ new_vm_name }}"
+    state: poweredon
+    delegate_to: localhost
+    register: vm_power_state

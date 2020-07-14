@@ -1,4 +1,5 @@
 ---
 - name: poop muhself
+  hosts: localhost
   roles:
     - vmware-deploy

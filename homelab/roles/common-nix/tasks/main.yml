@@ -38,7 +38,7 @@
 - name: Add default_domain_suffix to sssd.conf
   lineinfile: 
     dest: /etc/sssd/sssd.conf
-    line: 'default_domain_suffix = safdal.se'
+    line: 'default_domain_suffix = {{ domain_name }}'
     insertafter: '^\[sssd\]'
   notify:
      - restart sssd

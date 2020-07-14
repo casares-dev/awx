@@ -1,0 +1,7 @@
+---
+- name: configure pxe server
+  hosts: PXE01
+  become: yes
+  roles:
+    - common-nix
+    - pxeboot

@@ -16,3 +16,10 @@ ad_pkgs:
   - samba-common-tools 
   - krb5-workstation 
   - authselect-compat
+
+ad_admin_group: LinuxAdmins@void.lab
+ad_join_account: administrator
+ad_join_pass: int0thev0ids
+domain_caps: VOID
+domain_suffix_caps: LAB
+domain_name: void.lab

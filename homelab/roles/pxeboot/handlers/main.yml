@@ -3,3 +3,8 @@
   service:
     name: dnsmasq
     state: restarted
+
+- name: restart apache
+  service:
+    name: httpd
+    state: restarted

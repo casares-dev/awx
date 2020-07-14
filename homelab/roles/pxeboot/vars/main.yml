@@ -1,0 +1,16 @@
+---
+pxe_pkgs:
+  - tftp-server
+  - syslinux
+  - dnsmasq
+  - httpd
+pxe_server_name: pxe01.void.lab
+pxe_server_ip: 10.0.2.7
+default_pxe_install_dir_name: centos8
+tftpboot_files:
+  - "/usr/share/syslinux/pxelinux.0"
+  - "/usr/share/syslinux/menu.c32"
+  - "/usr/share/syslinux/memdisk"
+  - "/usr/share/syslinux/mboot.c32"
+  - "/usr/share/syslinux/chain.c32"
+  - "/usr/share/syslinux/vesamenu.c32"

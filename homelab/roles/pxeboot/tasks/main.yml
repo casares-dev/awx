@@ -12,5 +12,39 @@
     group: root
     mode: '0644'
     backup: yes
+
+- name: create pxelinux.cfg directory
+  file:
+    path: /var/lib/tftpboot/pxelinux.cfg/
+    state: directory
+    mode: '0755'
+    group: root
+    owner: root
+
+- name: configure pxe boot menu
+  template:
+    src: default.j2
+    dest: /var/lib/tftpboot/pxelinux.cfg/default
+
+- name: copy syslinux template files to pxelinux.cfg directory
+  copy:
+    src: "{{ tftpboot_files }}"
+    dest: "/var/lib/tftpboot"
+    force: no
+
+- name: copy pxe config for apache
+  template:
+    src: pxeboot.cfg.j2
+    dest: /etc/httpd/conf.d/pxeboot.cfg
+
+- name: allow apache to modify files
+  sefcontext:
+    target: '/var/lib/tftpboot/data(/.*)?'
+    setype: httpd_sys_rw_content_t
+    state: present
+
+- name: apply new SELinux file contexts
+  command: restorecon -irv /var/lib/tftpboot/data
   notify:
-    - restart dnsmasq
+  - restart dnsmasq
+  - restart apache

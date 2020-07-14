@@ -1,0 +1,22 @@
+---
+- name: ESXi hardening
+  hosts: eridanus
+  roles:
+    - esxi-hardening
+
+- name: deploy domain controllers
+  hosts: domain_controllers
+  roles:
+    - vmware-deploy
+    - common-win
+    - dc
+
+- name: deploy file server
+  hosts: file_servers
+  roles:
+    - vmware-deploy
+    - nix-common
+    - fs
+
+- name: deploy unix control
+  hosts: nixctl

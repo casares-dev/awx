@@ -1,0 +1,19 @@
+default vesamenu.c32
+prompt 0
+timeout 10
+
+
+
+LABEL 1
+    MENU LABEL ^1) Install CentOS 8
+    MENU AUTOBOOT
+    MENU DEFAULT
+    KERNEL data/centos7_64Bit/images/pxeboot/vmlinuz
+    APPEND initrd=data/centos7_64Bit/images/pxeboot/initrd.img method=http://{{ pxe_server_ip }}/pxeboot/{{ default_pxe_install_dir_name }}/ devfs=nomount
+
+# Local Hard Disk pxelinux.cfg default entry
+LABEL 2
+    MENU LABEL ^2) Boot local hard drive
+    MENU AUTOBOOT
+    MENU DEFAULT
+    LOCALBOOT 0

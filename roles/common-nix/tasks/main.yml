@@ -23,3 +23,36 @@
     name: "{{ common_pkgs }}"
     state: latest
   when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+
+- name: join to active directory
+  become: true
+  yum:
+    name: "{{ ad_pkgs }}"
+    state: present
+  notify:
+    - restart realmd
+
+- name: install pexpect using pip
+  pip:
+    name: pexpect
+
+- name: join system to AD and add the computer object in the Linux OU
+  expect:
+    command: /bin/bash -c "/usr/sbin/realm join --user={{ ad_join_account }}@{{ domain_name }} --password={{ ad_join_pass }} --computer-ou=OU=Domain\ Computers,DC={{ domain_caps }},DC={{ domain_suffix_caps }} {{ domain_name }}"
+
+- name: add default_domain_suffix to sssd.conf
+  lineinfile:
+    dest: /etc/sssd/sssd.conf
+    insertafter: '^\[sssd\]'
+    line: 'default_domain_suffix = {{ domain_name }}'
+  notify:
+    - restart sssd
+
+- name: allow admin ad group logon privileges
+  command: /bin/bash -c "/usr/sbin/realm permit -g {{ ad_admin_group }}@{{ domain_name }}"
+
+- name: add admin ad group to sudoers
+  lineinfile:
+    dest: /etc/sudoers
+    line: '%{{ ad_admin_group }}@{{ domain_name }}        ALL=(ALL)       ALL'
+    insertafter: '^%wheel'

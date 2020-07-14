@@ -1,0 +1,5 @@
+---
+- name: update current packages
+  pkg:
+    name: '*'
+    state: latest

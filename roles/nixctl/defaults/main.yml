@@ -1,0 +1,4 @@
+---
+nixctl_pkgs:
+  - tmux
+  - lolcat

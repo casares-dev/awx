@@ -1,0 +1,5 @@
+---
+fs_paths:
+  - "/srv/shared"
+  - "/srv/iso"
+  - "/srv/chad"

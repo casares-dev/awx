@@ -8,17 +8,47 @@
   block:
     - name: checking fs folder structure
       stat:
-       path: "{{ item }}"
+       path: "{{ fs_paths }}"
       register: folder_stats
-      with_items:
-      - ["/srv/shared","/srv/iso","/srv/chad"]
     - name:
       file:
-       path: "{{ item.item }}"
+       path: "{{ folder_stats.results }}"
        state: directory
        mode: 0755
        group: root
        owner: fsadmins
-      when: item.stat.exists == false
-      with_items:
-      - "{{folder_stats.results}}"
+      when: fs_paths.stat.exists == false
+
+- name: install nfs-server
+  yum:
+    name: nfs-server
+    state: present
+
+- name: configure nfs nfs-server
+  template:
+    src: export.j2
+    dest: /etc/export
+    mode: '0644'
+    owner: root
+    group: root
+    backup: yes
+  notify:
+    - start nfs-server
+
+- name: install samba packages
+  yum:
+    name: "{{ smb_pkgs }}"
+    state: present
+
+- name: configure samba
+  template:
+    src: smb.conf.j2
+    dest: /etc/samba/smb.conf
+    mode: '0644'
+    owner: root
+    group: root
+    backup: yes
+  notify:
+    - start samba
+
+- name: populate iso share with current releases

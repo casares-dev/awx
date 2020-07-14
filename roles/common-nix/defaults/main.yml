@@ -1,0 +1,7 @@
+---
+common_pkgs:
+  - wget
+  - curl
+  - screenfetch
+  - vim-tiny
+  - htop

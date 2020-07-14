@@ -12,15 +12,15 @@
     group: root
     owner: root
 
--  name: mount iso nfs share
-     mount:
-       fstype: nfs
-       opts: defaults
-       dump: 0
-       passno: 0
-       state: mounted
-       src: fs01:/srv/iso
-       path: /nfs/fs01/iso
+- name: mount iso nfs share
+  mount:
+    fstype: nfs
+    opts: defaults
+    dump: '0'
+    passno: '0'
+    state: mounted
+    src: fs01:/srv/iso
+    path: /nfs/fs01/iso
 
 - name: configure /etc/dnsmasq.conf
   template:

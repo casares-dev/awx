@@ -4,6 +4,24 @@
     name: "{{ pxe_pkgs }}"
     state: present
 
+- name: create nfs share mount directory
+  file:
+    path: /nfs/fs01/iso
+    state: directory
+    mode: '755'
+    group: root
+    owner: root
+
+-  name: mount iso nfs share
+     mount:
+       fstype: nfs
+       opts: defaults
+       dump: 0
+       passno: 0
+       state: mounted
+       src: fs01:/srv/iso
+       path: /nfs/fs01/iso
+
 - name: configure /etc/dnsmasq.conf
   template:
     src: dnsmasq.conf.j2
@@ -20,6 +38,22 @@
     mode: '0755'
     group: root
     owner: root
+
+- name: create tftpboot data directory
+  file:
+    path: /var/lib/tftpboot/data
+    state: directory
+    mode: '0755'
+    owner: root
+    group: root
+
+- name: Create a symbolic link
+  file:
+    src: /nfs/fs01/iso
+    dest: /var/lib/tftpboot/data
+    owner: root
+    group: root
+    state: link
 
 - name: configure pxe boot menu
   template:

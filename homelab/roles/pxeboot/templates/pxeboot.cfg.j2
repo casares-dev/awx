@@ -1,6 +1,6 @@
-Alias /pxeboot {{ default_pxe_install_dir_name }}
+Alias /pxeboot /var/lib/tftpboot/data
 
-<Directory {{ default_pxe_install_dir_name }}>
+<Directory /var/lib/tftpboot/data>
 Options Indexes FollowSymLinks
 Require all granted
 </Directory>

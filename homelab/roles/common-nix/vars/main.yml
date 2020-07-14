@@ -5,6 +5,7 @@ common_pkgs:
   - screenfetch
   - vim-tiny
   - htop
+  - nfs-utils
 
 ad_pkgs:
   - realmd

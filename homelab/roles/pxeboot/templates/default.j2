@@ -8,12 +8,9 @@ LABEL 1
     MENU LABEL ^1) Install CentOS 8
     MENU AUTOBOOT
     MENU DEFAULT
-    KERNEL data/centos7_64Bit/images/pxeboot/vmlinuz
-    APPEND initrd=data/centos7_64Bit/images/pxeboot/initrd.img method=http://{{ pxe_server_ip }}/pxeboot/{{ default_pxe_install_dir_name }}/ devfs=nomount
+    KERNEL data/CentOS/8/images/pxeboot/vmlinuz
+    APPEND initrd=data/CentOS/8/data/images/pxeboot/initrd.img method=http://{{ pxe_server_ip }}/pxeboot/CentOS/8/data/ devfs=nomount
 
-# Local Hard Disk pxelinux.cfg default entry
 LABEL 2
     MENU LABEL ^2) Boot local hard drive
-    MENU AUTOBOOT
-    MENU DEFAULT
     LOCALBOOT 0

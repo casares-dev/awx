@@ -38,16 +38,5 @@
       - cdrom
       - disk
       - floppy
-    delegate_to: localhost
-    register: vm_boot_order
-
-- name: power on new vm_boot_order
-  vmware_guest:
-    hostname: "{{ vcenter_hostname }}"
-    username: "{{ vcenter_username }}"
-    password: "{{ vcenter_password }}"
-    validate_certs: no
-    name: "{{ new_vm_name }}"
-    state: poweredon
-    delegate_to: localhost
-    register: vm_power_state
+  notify:
+    - power on vm

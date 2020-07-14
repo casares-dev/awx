@@ -39,16 +39,41 @@
     src: fs01:/srv/shared
     path: /nfs/fs01/shared
 
-- name: join to active directory
+- name: get AD packages for el
   become: true
   yum:
     name: "{{ ad_pkgs }}"
     state: present
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
   notify:
     - restart realmd
 
-- name: join system to AD and add the computer object in the Linux OU
-  command: /bin/bash -c "/usr/sbin/realm join --user={{ ad_join_account }}@{{ domain_name }} --password={{ ad_join_pass }} --computer-ou=OU=Domain\ Computers,DC={{ domain_caps }},DC={{ domain_suffix_caps }} {{ domain_name }}"
+- name: install AD debian packages
+  apt:
+    name: "{{ ad_pkgs }}"
+    state: latest
+  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+
+- name: Install pexpect using pip
+  pip:
+    name: pexpect
+
+- name: check domain join status
+  command: /bin/bash -c "/usr/sbin/realm list"
+  register: realm_status
+
+- name: join system to AD
+  expect:
+    command: /bin/bash -c "/usr/sbin/realm join --user={{ ad_join_account }}@{{ domain_name }} --computer-ou=OU=Domain\ Computers,DC={{ domain_caps }},DC={{ domain_suffix_caps }} {{ domain_name }}"
+    responses:
+      Password for *: "{{ bind_password }}"
+  when: realm_status.stdout == ""
+
+- name: Check if machine is bound
+  shell: /bin/bash -c "realm list | grep sssd"
+  register: realmd_bound
+  changed_when: false
+  ignore_errors: true
 
 - name: Add default_domain_suffix to sssd.conf
   lineinfile: 
@@ -57,6 +82,7 @@
     insertafter: '^\[sssd\]'
   notify:
      - restart sssd
+     - restart realmd
   when: realmd_bound|failed
 
 - name: allow admin ad group logon privileges

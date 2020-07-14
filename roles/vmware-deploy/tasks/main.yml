@@ -26,7 +26,7 @@
   register: deploy_vm
 
 - name: change vm boot boot order
-  vmware_guest_boot_options:
+  vmware_guest_boot_manager:
     hostname: "{{ vcenter_hostname }}"
     username: "{{ vcenter_username }}"
     password: "{{ vcenter_password }}"

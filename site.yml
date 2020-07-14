@@ -1,2 +1,62 @@
 ---
 
+- hosts: pxe
+  become: true
+  roles:
+    - pxeboot
+
+- hosts: file_servers
+  become: true
+  roles:
+    - fs
+
+- hosts: domain_controllers
+  become: true
+  roles:
+   - dc
+
+- hosts: nixctl
+  become: true
+  roles:
+    - nixctl
+
+- hosts: winctl
+  become: true
+  roles:
+    - winctl
+
+- hosts: okd_hosts
+  become: true
+  roles:
+    - okd_k8s
+
+- hosts: emulators
+  become: true
+  roles:
+    - retroemu
+
+- hosts: freebsd
+  become: true
+  roles:
+    - freebsd
+
+- hosts: kali
+  become: true
+  roles:
+    - security
+
+- hosts: tam
+  become: true
+  roles:
+    - torrent
+
+- hosts: rhcsa_lab
+  become: true
+  roles:
+    - rhcsa
+
+- hosts: all
+  become: true
+  roles:
+    - update
+  

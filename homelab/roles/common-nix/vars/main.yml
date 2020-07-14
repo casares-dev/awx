@@ -2,7 +2,6 @@
 common_pkgs:
   - wget
   - curl
-  - screenfetch
   - vim-minimal
   - htop
   - nfs-utils

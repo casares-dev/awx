@@ -1,5 +1,6 @@
 ---
-- name: Create a virtual machine on given ESXi hostname
+- name: Create a virtual machine on given ESXi hostname'
+  hosts: localhost
   vmware_guest:
     hostname: "{{ vcenter_hostname }}"
     username: "{{ vcenter_username }}"

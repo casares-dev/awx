@@ -1,66 +1,76 @@
 ---
-
-- hosts: pxe
+- name: set up pxe server
+  hosts: pxe
   become: true
   roles:
     - common-nix
     - pxeboot
 
-- hosts: file_servers
+- name: set up file server
+  hosts: file_servers
   become: true
   roles:
     - common-nix
     - fs
 
-- hosts: domain_controllers
+- name: set up domain controllers
+  hosts: domain_controllers
   become: true
   roles:
    - common-win
    - dc
 
-- hosts: nixctl
+- name: set up unix control machine
+  hosts: nixctl
   become: true
   roles:
     - common-nix
     - nixctl
 
-- hosts: winctl
+- name: set up windows control machine
+  hosts: winctl
   become: true
   roles:
     - common-win
     - winctl
 
-- hosts: okd_hosts
+- name: set up okd kubernetes
+  hosts: okd_hosts
   become: true
   roles:
     - common-nix
     - okd_k8s
 
-- hosts: emulators
+- name: set up emulation vm
+  hosts: emulators
   become: true
   roles:
     - common-nix
     - retroemu
 
-- hosts: freebsd
+- name: set up freebsd vm
+  hosts: freebsd
   become: true
   roles:
     - common-nix
     - freebsd
 
-- hosts: kali
+- name: set up kali linux vm
+  hosts: kali
   become: true
   roles:
     - common-nix
     - security
 
-- hosts: tam
+- name: set up torrent mgmt vm
+  hosts: tam
   become: true
   roles:
     - common-nix
     - torrent
 
-- hosts: rhcsa_lab
+- name: set up rhsca lab vms
+  hosts: rhcsa_lab
   become: true
   roles:
     - rhcsa

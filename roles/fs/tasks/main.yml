@@ -10,7 +10,7 @@
       stat:
        path: "{{ fs_paths }}"
       register: folder_stats
-    - name:
+    - name: creating directories
       file:
        path: "{{ folder_stats.results }}"
        state: directory
@@ -26,8 +26,8 @@
 
 - name: configure nfs nfs-server
   template:
-    src: export.j2
-    dest: /etc/export
+    src: exports.j2
+    dest: /etc/exports
     mode: '0644'
     owner: root
     group: root
@@ -51,4 +51,27 @@
   notify:
     - start samba
 
-- name: populate iso share with current releases
+- name: populate iso share with current isos
+  block:
+    - name: checking iso folder structure
+      stat:
+       path: "{{ iso_paths }}"
+      register: iso_folder_stats
+    - name: creating directories
+      file:
+       path: "{{ iso_folder_stats.results }}"
+       state: directory
+       mode: '0755'
+       group: root
+       owner: fsadmins
+      when: iso_paths.stat.exists == false
+    - name: download centos-current
+    - name: download redhat-curent
+    - name: download freebsd-current
+    - name: download alpine-current
+    - name: download debian-current
+    - name: download ubuntu-current
+    - name: download openbsd-current
+    - name: download kali-current
+    - name: download windows-current
+    - name: download vmware-current

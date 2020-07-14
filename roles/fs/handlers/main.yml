@@ -3,3 +3,10 @@
   service:
     name: nfs-server
     state: started
+
+- nmae: start samba
+  service:
+    name:
+      - smb
+      - nmb
+    state: started

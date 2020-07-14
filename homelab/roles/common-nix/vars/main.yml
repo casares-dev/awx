@@ -20,7 +20,7 @@ ad_pkgs:
 
 ad_admin_group: LinuxAdmins@void.lab
 ad_join_account: administrator
-ad_join_pass: int0thev0ids
+ad_join_pass: UNIXSyst3m#!
 domain_caps: VOID
 domain_suffix_caps: LAB
 domain_name: void.lab

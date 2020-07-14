@@ -5,7 +5,7 @@
     username: "{{ vcenter_username }}"
     password: "{{ vcenter_password }}"
     validate_certs: no
-    folder: "/{{ esxi_datastore }}"
+    folder: "/{{ vmware_datacenter}/vm"
     datacenter: "{{ vmware_datacenter }}"
     name: "{{ new_vm_name }}"
     state: present

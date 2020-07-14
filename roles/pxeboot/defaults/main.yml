@@ -1,0 +1,8 @@
+---
+pxe_pkgs:
+  - tftp-server
+  - syslinux
+  - dnsmasq
+pxe_server_name: pxe01.void.lab
+pxe_server_ip: 10.0.2.7
+

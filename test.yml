@@ -1,5 +1,5 @@
 ---
-- name: poop muhself
+- name: create new vm
   hosts: localhost
   roles:
     - vmware-deploy

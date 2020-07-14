@@ -3,7 +3,6 @@
   yum:
     name: '*'
     state: latest
-    enablerepo: "epel"
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
 - name: update all debian packages
@@ -11,6 +10,12 @@
     name: '*'
     state: latest
   when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+
+- name: install and enable epel repo
+  yum:
+    name: epel-release
+    state: present
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
   
 - name: install common el packages
   yum:

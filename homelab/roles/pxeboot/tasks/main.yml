@@ -34,6 +34,11 @@
     path: /nfs/fs01/iso
   when: isoshare.stat.isdir is not defined
 
+- name: remove previous /etc/dnsmasq.conf
+  file:
+    path: /etc/dnsmasq.conf
+    state: absent
+
 - name: configure /etc/dnsmasq.conf
   template:
     src: dnsmasq.conf.j2
@@ -41,7 +46,6 @@
     owner: root
     group: root
     mode: '0644'
-    backup: yes
 
 - name: configure /etc/default/dnsmasq
   lineinfile:
@@ -100,3 +104,8 @@
   notify:
   - restart dnsmasq
   - restart apache
+
+- name: start tftp service
+  service:
+    name: tftp
+    state: started

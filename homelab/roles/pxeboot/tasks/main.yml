@@ -71,21 +71,21 @@
 
 - name: link files to /var/lib/tftpboot/
   file:
-    src: "{{ item }}"
-    dest: /var/lib/tftpboot/
+    src: "/tftpboot/{{ item }}"
+    dest: "/var/lib/tftpboot/{{ item }}"
     owner: root
     group: root
     state: link
   with_items:
-    - /tftpboot/ldlinux.c32
-    - /tftpboot/libcom32.c32
-    - /tftpboot/libutil.c32
-    - /tftpboot/pxelinux.0
-    - /tftpboot/menu.c32
-    - /tftpboot/memdisk
-    - /tftpboot/mboot.c32
-    - /tftpboot/chain.c32
-    - /tftpboot/vesamenu.c32
+    - ldlinux.c32
+    - libcom32.c32
+    - libutil.c32
+    - pxelinux.0
+    - menu.c32
+    - memdisk
+    - mboot.c32
+    - chain.c32
+    - vesamenu.c32
 
 - name: link tftpboot dir to /var/www/html
   file:

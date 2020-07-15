@@ -8,6 +8,8 @@
   stat:
     path: /nfs/fs01/iso
   register: isoshare
+
+- name: confirmation of directory
   debug:
     msg: "ISO share exists"
   when: p.stat.isdir is defined

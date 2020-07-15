@@ -21,6 +21,6 @@ ad_pkgs:
 ad_admin_group: LinuxAdmins@void.lab
 ad_join_account: Administrator
 bind_password: UNIXSyst3m#!
-domain_name_start: VOID
-domain_suffix_only: LAB
+domain_name_start: void
+domain_suffix_only: lab
 domain_name: void.lab

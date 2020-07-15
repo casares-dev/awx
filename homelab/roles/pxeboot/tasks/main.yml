@@ -67,7 +67,7 @@
 - name: copy syslinux template files to pxelinux.cfg directory
   copy:
     src: "{{ tftpboot_files }}"
-    dest: "/var/lib/tftpboot"
+    dest: /var/lib/tftpboot
     force: no
 
 - name: copy pxe config for apache

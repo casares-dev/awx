@@ -86,7 +86,7 @@
 - name: link files to /var/lib/tftpboot/
   file:
     src: "{{ item }}"
-    dest: /var/lib/tftpboot/ldlinux.c32
+    dest: /var/lib/tftpboot
     owner: root
     group: root
     state: link

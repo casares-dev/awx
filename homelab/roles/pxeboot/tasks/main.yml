@@ -67,9 +67,9 @@
 - name: copy syslinux template files to pxelinux.cfg directory
   copy:
     src: "{{ item }}"
-    dest: /var/lib/tftpboot/
+    dest: /var/lib/tftpboot
     force: no
-    with_items:
+  with_items:
       - /usr/share/syslinux/pxelinux.0
       - /usr/share/syslinux/menu.c32
       - /usr/share/syslinux/memdisk

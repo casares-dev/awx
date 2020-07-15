@@ -10,7 +10,6 @@
     name: "{{ new_vm_name }}"
     state: present
     guest_id: centos64Guest
-    # This is hostname of particular ESXi server on which user wants VM to be deployed
     esxi_hostname: "{{ esxi_hostname }}"
     disk:
     - size_gb: 20
@@ -26,7 +25,7 @@
   delegate_to: localhost
   register: deploy_vm
 
-- name: change vm boot boot order
+- name: change vm boot order for pxe
   vmware_guest_boot_manager:
     hostname: "{{ vcenter_hostname }}"
     username: "{{ vcenter_username }}"
@@ -38,5 +37,36 @@
       - cdrom
       - disk
       - floppy
+
+- name: gather vm facts
+  vmware_vm_facts:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: no
+    name: "{{ new_vm_name }}"
+  delegate_to: localhost
+  register: new_vm_facts
+
+- name: create pxe config file for the vm
+  include_role:
+    name: create-vm-pxecfg
   notify:
     - power on vm
+
+- name: change vm boot order back for post-install
+  vmware_guest_boot_manager:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: no
+    name: "{{ new_vm_name }}"
+    boot_order:
+      - disk
+      - cdrom
+      - ethernet
+      - floppy
+
+- name: wait for installation to finish
+  wait_for_connection:
+    timeout: 900

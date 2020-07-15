@@ -5,6 +5,7 @@ common_pkgs:
   - vim-minimal
   - htop
   - nfs-utils
+  - python36
 
 ad_pkgs:
   - realmd

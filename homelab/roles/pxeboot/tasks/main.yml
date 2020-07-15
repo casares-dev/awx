@@ -83,6 +83,14 @@
       - /usr/share/syslinux/chain.c32
       - /usr/share/syslinux/vesamenu.c32
 
+- name: link files to /var/lib/tftpboot/
+  file:
+    src: /usr/lib/syslinux/modules/bios/ldlinux.c32
+    dest: /var/lib/tftpboot/ldlinux.c32
+    owner: root
+    group: root
+    state: link
+
 - name: copy pxe config for apache
   template:
     src: pxeboot.cfg.j2

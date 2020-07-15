@@ -4,7 +4,7 @@ interface=ens192,lo
 
 
 # DHCP Options
-dhcp-range=172.17.0.1,proxy
+dhcp-range=10.0.0.0,proxy
 dhcp-option=vendor:PXEClient,6,2b
 dhcp-no-override
 
@@ -14,7 +14,7 @@ dhcp-boot=pxelinux.0,{{ pxe_server_name }},{{ pxe_server_ip }}
 
 
 #pxe-prompt="Press F8 for menu.", 10
-pxe-service=X86PC, "www.linuxtopic.com", pxelinux
+pxe-service=X86PC, "void.lab", pxelinux
 
 
 # TFTP Options

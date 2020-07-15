@@ -19,8 +19,8 @@ ad_pkgs:
   - authselect-compat
 
 ad_admin_group: LinuxAdmins@void.lab
-ad_join_account: ADMINISTRTATOR
+ad_join_account: Administrator
 bind_password: UNIXSyst3m#!
-domain_caps: VOID
-domain_suffix_caps: LAB
+domain_name_start: VOID
+domain_suffix_only: LAB
 domain_name: void.lab

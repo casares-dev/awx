@@ -93,7 +93,7 @@
   with_items:
     - /tftpboot/ldlinux.c32
     - /tftpboot/libcom32.c32
-    - /tftboot/libutil.c32
+    - /tftpboot/libutil.c32
 
 - name: link tftpboot dir to /var/www/html
   file:
@@ -105,6 +105,11 @@
   template:
     src: pxeboot.cfg.j2
     dest: /etc/httpd/conf.d/pxeboot.cfg
+
+- name: disable firewall
+  service:
+    name: firewalld
+    state: stopped
 
 - name: allow apache to modify files
   sefcontext:

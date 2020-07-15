@@ -51,14 +51,6 @@
     group: root
     owner: root
 
-- name: create tftpboot data directory
-  file:
-    path: /var/lib/tftpboot/data
-    state: directory
-    mode: '0755'
-    owner: root
-    group: root
-
 - name: Create a symbolic link
   file:
     src: /nfs/fs01/iso

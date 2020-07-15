@@ -66,9 +66,16 @@
 
 - name: copy syslinux template files to pxelinux.cfg directory
   copy:
-    src: "{{ tftpboot_files }}"
-    dest: /var/lib/tftpboot
+    src: "{{ item }}"
+    dest: /var/lib/tftpboot/
     force: no
+    with_items:
+      - /usr/share/syslinux/pxelinux.0
+      - /usr/share/syslinux/menu.c32
+      - /usr/share/syslinux/memdisk
+      - /usr/share/syslinux/mboot.c32
+      - /usr/share/syslinux/chain.c32
+      - /usr/share/syslinux/vesamenu.c32
 
 - name: copy pxe config for apache
   template:

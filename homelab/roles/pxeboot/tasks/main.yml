@@ -34,11 +34,6 @@
     path: /nfs/fs01/iso
   when: isoshare.stat.isdir is not defined
 
-- name: remove previous /etc/dnsmasq.conf
-  file:
-    path: /etc/dnsmasq.conf
-    state: absent
-
 - name: configure /etc/dnsmasq.conf
   template:
     src: dnsmasq.conf.j2

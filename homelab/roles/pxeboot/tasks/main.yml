@@ -43,6 +43,12 @@
     mode: '0644'
     backup: yes
 
+- name: configure /etc/default/dnsmasq
+  lineinfile:
+    path: /etc/default/dnsmasq
+    line: "DNSMASQ_EXCEPT=lo"
+    create: yes
+
 - name: create pxelinux.cfg directory
   file:
     path: /var/lib/tftpboot/pxelinux.cfg/

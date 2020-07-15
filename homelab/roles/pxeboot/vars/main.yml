@@ -2,6 +2,7 @@
 pxe_pkgs:
   - tftp-server
   - syslinux
+  - syslinux-tftpboot
   - dnsmasq
   - httpd
 pxe_server_name: pxe01.void.lab

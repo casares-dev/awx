@@ -85,7 +85,7 @@
 
 - name: link files to /var/lib/tftpboot/
   file:
-    src: /usr/lib/syslinux/modules/bios/ldlinux.c32
+    src: /tftpboot/ldlinux.c32
     dest: /var/lib/tftpboot/ldlinux.c32
     owner: root
     group: root

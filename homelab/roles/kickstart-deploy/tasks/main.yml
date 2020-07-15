@@ -1,0 +1,8 @@
+---
+- name: generate kickstart file
+  template:
+    src: "{{ selected_os }}.ks"
+    dest: /var/www/html/ks/{{ selected os }}.ks
+    mode: '0755'
+
+- name: generate MAC config for tftp

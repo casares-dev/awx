@@ -69,20 +69,6 @@
     src: default.j2
     dest: /var/lib/tftpboot/pxelinux.cfg/default
 
-- name: copy syslinux template files to pxelinux.cfg directory
-  copy:
-    remote_src: yes
-    src: "{{ item }}"
-    dest: /var/lib/tftpboot
-    force: no
-  with_items:
-      - /usr/share/syslinux/pxelinux.0
-      - /usr/share/syslinux/menu.c32
-      - /usr/share/syslinux/memdisk
-      - /usr/share/syslinux/mboot.c32
-      - /usr/share/syslinux/chain.c32
-      - /usr/share/syslinux/vesamenu.c32
-
 - name: link files to /var/lib/tftpboot/
   file:
     src: "{{ item }}"
@@ -94,6 +80,12 @@
     - /tftpboot/ldlinux.c32
     - /tftpboot/libcom32.c32
     - /tftpboot/libutil.c32
+    - /tftpboot/pxelinux.0
+    - /tftpboot/menu.c32
+    - /tftpboot/memdisk
+    - /tftpboot/mboot.c32
+    - /tftpboot/chain.c32
+    - /tftpboot/vesamenu.c32
 
 - name: link tftpboot dir to /var/www/html
   file:
@@ -107,23 +99,25 @@
     dest: /etc/httpd/conf.d/pxeboot.cfg
 
 - name: disable firewall
-  service:
+  systemd:
     name: firewalld
     state: stopped
+    enabled: no
 
 - name: allow apache to modify files
   sefcontext:
-    target: '/var/lib/tftpboot/data(/.*)?'
+    target: '/var/www/html(/.*)?'
     setype: httpd_sys_rw_content_t
     state: present
 
 - name: apply new SELinux file contexts
-  command: restorecon -irv /var/lib/tftpboot/data
+  command: restorecon -irv /var/www/html
   notify:
   - restart dnsmasq
   - restart apache
 
 - name: start tftp service
-  service:
+  systemd:
     name: tftp
     state: started
+    enabled: yes

@@ -1,11 +1,9 @@
 ---
 pxe_pkgs:
   - tftp-server
-  - syslinux
   - syslinux-tftpboot
   - dnsmasq
   - httpd
 pxe_server_name: pxe01.void.lab
 pxe_server_ip: 10.0.2.7
-default_pxe_install_dir_name: centos8
 

@@ -17,8 +17,8 @@
       type: thin
       datastore: "{{ esxi_datastore }}"
     hardware:
-      memory_mb: 1024
-      num_cpus: 2
+      memory_mb: "{{ vm memory_mb }}"
+      num_cpus: "{{ vm_num_cpus }}"
       scsi: paravirtual
     networks:
     - name: VM Network

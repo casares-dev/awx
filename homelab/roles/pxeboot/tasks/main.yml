@@ -85,10 +85,20 @@
 
 - name: link files to /var/lib/tftpboot/
   file:
-    src: /tftpboot/ldlinux.c32
+    src: "{{ item }}"
     dest: /var/lib/tftpboot/ldlinux.c32
     owner: root
     group: root
+    state: link
+  with_items:
+    - /tftpboot/ldlinux.c32
+    - /tftpboot/libcom32.c32
+    - /tftboot/libutil.c32
+
+- name: link tftpboot dir to /var/www/html
+  file:
+    src: /var/lib/tftpboot/data
+    dest: /var/www/html/pxeboot
     state: link
 
 - name: copy pxe config for apache

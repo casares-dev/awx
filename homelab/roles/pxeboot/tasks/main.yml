@@ -66,7 +66,7 @@
 
 - name: copy syslinux template files to pxelinux.cfg directory
   copy:
-    src: "{{ item }}"
+    remote_src: "{{ item }}"
     dest: /var/lib/tftpboot
     force: no
   with_items:

@@ -12,7 +12,7 @@
 - name: confirmation of directory
   debug:
     msg: "ISO share exists"
-  when: p.stat.isdir is defined
+  when: isoshare.stat.isdir is defined
 
 - name: create nfs share mount directory
   file:

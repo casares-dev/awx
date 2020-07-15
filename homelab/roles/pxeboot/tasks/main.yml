@@ -4,13 +4,22 @@
     name: "{{ pxe_pkgs }}"
     state: present
 
+- name: check if iso nfs share exists
+  stat:
+    path: /nfs/fs01/iso
+  register: isoshare
+  debug:
+    msg: "ISO share exists"
+  when: p.stat.isdir is defined
+
 - name: create nfs share mount directory
   file:
     path: /nfs/fs01/iso
     state: directory
-    mode: '755'
+    mode: '0755'
     group: root
     owner: root
+  when: isoshare.stat.isdir is not defined
 
 - name: mount iso nfs share
   mount:
@@ -21,6 +30,7 @@
     state: mounted
     src: fs01:/srv/iso
     path: /nfs/fs01/iso
+  when: isoshare.stat.isdir is not defined
 
 - name: configure /etc/dnsmasq.conf
   template:

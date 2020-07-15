@@ -64,7 +64,7 @@
 
 - name: join system to AD
   expect:
-    command: /bin/bash -c "/usr/sbin/realm join --user={{ ad_join_account }}@{{ domain_name }} --computer-ou=OU=Domain\ Computers,DC={{ domain_caps }},DC={{ domain_suffix_caps }} {{ domain_name }}"
+    command: /bin/bash -c "/usr/sbin/realm join --user={{ ad_join_account }}@{{ domain_name }} --computer-ou=OU=Linux,OU=Servers,DC={{ domain_caps }},DC={{ domain_suffix_caps }} {{ domain_name }}"
     responses:
       Password for *: "{{ bind_password }}"
   when: realm_status.stdout == ""

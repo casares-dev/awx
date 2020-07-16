@@ -29,6 +29,13 @@
   command: restorecon -irv /var/www/html
   delegate_to: PXE01
 
+- name: create mac file
+  become: yes
+  template:
+    src: pxecfg.j2
+    dest: "/var/lib/tftpboot/pxelinux.cfg/01-{{ new_vm_pxe_mac }}"
+  delegate_to: PXE01
+
 - name: restart tftp service
   become: yes
   systemd:
@@ -40,11 +47,9 @@
   - restart apache
   delegate_to: PXE01
 
-- name: create mac file
-  become: yes
-  template:
-    src: pxecfg.j2
-    dest: "/var/lib/tftpboot/pxelinux.cfg/01-{{ new_vm_pxe_mac }}"
-  delegate_to: PXE01
+- name: finish up
+  debug:
+    msg: "Configuration on PXE01 complete"
   notify:
     - power on vm
+  delegate_to: localhost

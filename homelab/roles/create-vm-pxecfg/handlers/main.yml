@@ -1,13 +1,4 @@
 ---
-- name: power on vm
-  vmware_guest:
-    hostname: "{{ vcenter_hostname }}"
-    username: "{{ vcenter_username }}"
-    password: "{{ vcenter_password }}"
-    validate_certs: no
-    name: "{{ new_vm_name }}"
-    state: poweredon
-
 - name: restart dnsmasq
   systemd:
     name: dnsmasq
@@ -19,3 +10,12 @@
     name: httpd
     state: restarted
   delegate_to: PXE01
+
+- name: power on vm
+  vmware_guest:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: no
+    name: "{{ new_vm_name }}"
+    state: poweredon

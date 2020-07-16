@@ -77,3 +77,4 @@
   wait_for_connection:
     timeout: 600
   delegate_to: "{{ machine_ip }}"
+  

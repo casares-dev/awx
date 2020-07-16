@@ -18,8 +18,8 @@
   template:
       src: kickstart.conf.j2
       dest: "/var/www/html/ks/{{ new_vm_name | lower }}.conf"
+      backup: yes
   delegate_to: PXE01
-  backup: yes
 
 - name: allow apache to modify files
   become: yes

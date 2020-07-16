@@ -13,7 +13,7 @@ lang en_US.UTF-8
 # Network information
 network  --bootproto=static --device=ens192 --gateway=10.0.0.1 --ip={{ machine_ip }} --nameserver=10.0.2.3,10.0.2.4 --netmask=255.255.0.0 --ipv6=auto --activate
 network  --hostname={{ machine_hostname }}
-repo --name="AppStream" --baseurl=http://{{ pxe_server_ip }}/pxeboot/CentOS/8/data/AppStream
+repo --name="AppStream" --baseurl=http://{{ pxe_server_ip }}/pxeboot/{{ os_name }}/{{ os maj }}/{{ os_min }}/AppStream
 # Use network installation
 url --url="http://{{ pxe_server_ip }}/pxeboot/{{ os_name }}/{{ os_maj }}/{{ os_min }}/"
 # Root password

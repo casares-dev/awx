@@ -9,9 +9,8 @@ LABEL 1
     MENU AUTOBOOT
     MENU DEFAULT
     KERNEL /data/CentOS/8/data/images/pxeboot/vmlinuz
-    APPEND initrd=/data/{{ os_name }}/{{ os_maj }}/{{ os_min }}/images/pxeboot/initrd.img inst.repo=http://{{ pxe_server_ip }}/pxeboot/{{ os_name }}/{{ os_maj }}/{{ os_min }}/ ks=http://{{ pxe_server_ip }}/ks/{{ new_vm_name}}.ks devfs=nomount
+    APPEND initrd=/data/{{ os_name }}/{{ os_maj }}/{{ os_min }}/images/pxeboot/initrd.img inst.repo=http://{{ pxe_server_ip }}/pxeboot/{{ os_name }}/{{ os_maj }}/{{ os_min }}/ ks=http://{{ pxe_server_ip }}/ks/{{ new_vm_name }}.conf devfs=nomount
 
 LABEL 2
     MENU LABEL ^2) Boot local hard drive
     LOCALBOOT 0
-    

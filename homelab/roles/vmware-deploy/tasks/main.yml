@@ -47,7 +47,7 @@
     datacenter: "{{ vmware_datacenter }}"
     name: "{{ new_vm_name }}"
     schema: "vsphere"
-    properties: ["config.hardware.device"]
+    properties: ["config.hardware.device.VirtualVmxnet3.macAddress"]
   delegate_to: localhost
   register: new_vm_facts
 

@@ -14,7 +14,6 @@
         username: "{{ vcenter_username }}"
         password: "{{ vcenter_password }}"
         validate_certs: no
-        folder: "/{{ vmware_datacenter}}/vm"
         datacenter: "{{ vmware_datacenter }}"
       delegate_to: localhost
       register: vm_info

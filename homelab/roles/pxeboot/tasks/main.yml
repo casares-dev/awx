@@ -116,8 +116,8 @@
   - restart dnsmasq
   - restart apache
 
-- name: start tftp service
+- name: restart tftp service
   systemd:
     name: tftp
-    state: started
+    state: restarted
     enabled: yes

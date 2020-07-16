@@ -1,5 +1,4 @@
 ---
-
 - name: include PXE01 vars
   include_vars:
     file: roles/pxeboot/vars/main.yml
@@ -16,6 +15,31 @@
   template:
       src: kickstart.ks.j2
       dest: "/var/www/html/ks/{{ new_vm_name }}.ks"
+  delegate_to: PXE01
+
+- name: allow apache to modify files
+  become: yes
+  sefcontext:
+    target: '/var/www/html(/.*)?'
+    setype: httpd_sys_rw_content_t
+    state: present
+  delegate_to: PXE01
+
+- name: apply new SELinux file contexts
+  become: yes
+  command: restorecon -irv /var/www/html
+  notify:
+  - restart dnsmasq
+  - restart apache
+  delegate_to: PXE01
+
+- name: restart tftp service
+  become: yes
+  systemd:
+    name: tftp
+    state: restarted
+    enabled: yes
+  delegate_to: PXE01
 
 - name: create mac file
   become: yes

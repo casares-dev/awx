@@ -7,7 +7,7 @@
 # set_fact: new_vm_pxe_mac="{{ new_vm_facts.virtual_machines[0].mac_address[0] | regex_replace(':', '-') | lower }}"
 
 - name: get mac address
-  set_fact: new_vm_pxe_mac="{{ [new_vm_facts.virtual_machines.mac_address[0] | json_query(query)] | regex_replace(':', '-') | lower }}"
+  set_fact: new_vm_pxe_mac="{{ new_vm_facts.virtual_machines.mac_address[0] | json_query(query)] | regex_replace(':', '-') | lower }}"
   vars:
     query: "[?guest_name==[new_vm_name]]"
 

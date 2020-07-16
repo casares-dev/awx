@@ -14,7 +14,7 @@
 - name: create mac file
   template:
     src: pxecfg.j2
-    dest: "/var/lib/tftpboot/pxeboot.cfg/01-{{ new_vm_pxe_mac }}"
+    dest: "/var/lib/tftpboot/pxelinux.cfg/01-{{ new_vm_pxe_mac }}"
   delegate_to: PXE01
   notify:
     - power on vm

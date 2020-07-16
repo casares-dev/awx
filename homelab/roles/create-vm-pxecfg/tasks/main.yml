@@ -1,6 +1,7 @@
 ---
-- debug:
-  var: new_vm_facts.virtual_machines
+- name: print vm facts
+  debug:
+    var: new_vm_facts.virtual_machines
 
 - name: set lowercase mac address
   set_fact: new_vm_pxe_mac="{{ new_vm_facts.virtual_machines[new_vm_name].mac_address | regex_replace(':', '-') | lower }}"

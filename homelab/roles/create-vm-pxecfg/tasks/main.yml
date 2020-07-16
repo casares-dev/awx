@@ -3,15 +3,18 @@
   include_vars:
     file: roles/pxeboot/vars/main.yml
 
-- name: show virtual machine parameters
-  debug:
-    msg: "{{ new_vm_facts.virtual_machines }}"
+#- name: set lowercase mac address
+# set_fact: new_vm_pxe_mac="{{ new_vm_facts.virtual_machines[0].mac_address[0] | regex_replace(':', '-') | lower }}"
 
 - name: set lowercase mac address
-  set_fact: new_vm_pxe_mac="{{ new_vm_facts.virtual_machines[0].mac_address[0] | regex_replace(':', '-') | lower }}"
+  set_fact: new_vm_pxe_mac="{{ item.mac_address[0]}}"
+  with_items:
+    - "{{ new_vm_facts.virtual_machines | json_query(query) }}"
+  vars:
+    query: "[?guest_name==[new_vm_name]]"
 
 - name: set hostname
-  set_fact: machine_hostname="{{ new_vm_facts.virtual_machines[0].guest_name | lower }}.{{ site_domain_name }}"
+  set_fact: machine_hostname="{{ new_vm_name | lower }}.{{ site_domain_name }}"
 
 - name: create custom kickstart file
   become: yes

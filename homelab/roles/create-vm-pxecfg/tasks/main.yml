@@ -7,7 +7,7 @@
 # set_fact: new_vm_pxe_mac="{{ new_vm_facts.virtual_machines[0].mac_address[0] | regex_replace(':', '-') | lower }}"
 
 - name: get mac address
-  set_fact: new_vm_pxe_mac_pre="{{ new_vm_facts[11] }}"
+  set_fact: new_vm_pxe_mac_pre="{{ new_vm_facts }}"
 
 - name: print vm with_items
   debug:

@@ -9,7 +9,7 @@
 - name: Get UUID from given VM Name
   block:
     - name: Get virtual machine info
-      vmware_vm_facts:
+      vmware_guest_info:
         hostname: '{{ vcenter_hostname }}'
         username: '{{ vcenter_username }}'
         password: '{{ vcenter_password }}'
@@ -17,14 +17,14 @@
         datacenter: '{{ vmware_datacenter }}'
         name: "{{ new_vm_name }}"
         schema: "vsphere"
-        properties: ["config.hardware.macAddress]"
+        properties: ["config.hardware.network.macaddress_dash]"]
       delegate_to: localhost
       register: vm_info
 
     - debug:
-        msg: "{{ item.uuid }}"
+        msg: "{{ item.macaddress_dash }}"
       with_items:
-        - "{{ vm_info }}"
+        - "{{ vm_info['guest_name'] }}"
 
 - name: get mac address
   set_fact: new_vm_pxe_mac_pre="{{ item.mac_address[0] }}"

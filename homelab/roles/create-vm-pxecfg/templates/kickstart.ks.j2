@@ -1,0 +1,47 @@
+#version=RHEL8
+ignoredisk --only-use=sda
+autopart --type=lvm
+# Partition clearing information
+clearpart --none --initlabel
+# Use graphical install
+graphical
+# Keyboard layouts
+keyboard --vckeymap=us --xlayouts='us'
+# System language
+lang en_US.UTF-8
+
+# Network information
+network  --bootproto=static --device=ens192 --gateway=10.0.0.1 --ip={{ machine_ip }} --nameserver=10.0.2.3,10.0.2.4 --netmask=255.255.0.0 --ipv6=auto --activate
+network  --hostname={{ machine_hostname }}
+repo --name="AppStream" --baseurl=http://{{ pxe_server_ip }}/pxeboot/CentOS/8/data/AppStream
+# Use network installation
+url --url="http://{{ pxe_server_ip }}/pxeboot/{{ os_name }}/{{ os_maj }}/{{ os_min }}/"
+# Root password
+rootpw --iscrypted $6$l2CT/vz36sTXV8lm$9Tf230T5OTP2evhzcUKM0Auyz29os8AGAyBvyYTEYCF/CI6/muMv03Fvh6B3w7QAekA.hav615s.IPfqL3eB/.
+# Run the Setup Agent on first boot
+firstboot --enable
+# Do not configure the X Window System
+skipx
+# System services
+services --enabled="chronyd"
+# System timezone
+timezone America/New_York --isUtc
+user --groups=wheel --name=ansuser --password=$6$1ztqj8bf9kbUJT1Q$uVW.LwXHVBCTXrz5uAM1zl7iO0XXC4sVaVSXnqZg5xcCTiT1U3wyqwXmk8P7W7x11q81l/5zckjcgV2mBQpHP. --iscrypted
+
+%packages
+@^minimal-environment
+@guest-agents
+@standard
+kexec-tools
+
+%end
+
+%addon com_redhat_kdump --enable --reserve-mb='auto'
+
+%end
+
+%anaconda
+pwpolicy root --minlen=6 --minquality=1 --notstrict --nochanges --notempty
+pwpolicy user --minlen=6 --minquality=1 --notstrict --nochanges --emptyok
+pwpolicy luks --minlen=6 --minquality=1 --notstrict --nochanges --notempty
+%end

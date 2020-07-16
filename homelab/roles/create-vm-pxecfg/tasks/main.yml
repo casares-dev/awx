@@ -11,6 +11,12 @@
 - name: set lowercase mac address
   set_fact: new_vm_pxe_mac="{{ new_vm_facts.virtual_machines[0].mac_address[0] | regex_replace(':', '-') | lower }}"
 
+- name: create custom kickstart file
+  become: yes
+  template:
+      src: kickstart.ks.j2
+      dest: "/var/www/html/ks/{{ new_vm_name }}.ks"
+
 - name: create mac file
   become: yes
   template:

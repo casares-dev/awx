@@ -17,7 +17,7 @@
         datacenter: '{{ vmware_datacenter }}'
         name: "{{ new_vm_name }}"
         schema: "vsphere"
-        properties: ["config.hardware.macaddress_dash"]
+        properties: ["config.hardware.network.macaddress_dash[0]"]
       delegate_to: localhost
       register: vm_info
 

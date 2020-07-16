@@ -7,23 +7,12 @@
 # set_fact: new_vm_pxe_mac="{{ new_vm_facts.virtual_machines[0].mac_address[0] | regex_replace(':', '-') | lower }}"
 
 - name: Get UUID from given VM Name
-  block:
-    - name: Get virtual machine info
-      vmware_guest_facts:
-        hostname: "{{ vcenter_hostname }}"
-        username: "{{ vcenter_username }}"
-        password: "{{ vcenter_password }}"
-        validate_certs: no
-        datacenter: "{{ vmware_datacenter }}"
-      delegate_to: localhost
-      register: vm_info
-
-    - debug:
-        msg: "{{ item.uuid }}"
-      with_items:
-        - "{{ vm_info.virtual_machines | json_query(query) }}"
-      vars:
-        query: "[?guest_name=='PXE01']"
+  debug:
+    msg: "{{ item.uuid }}"
+  with_items:
+    - "{{ vm_info.virtual_machines | json_query(query) }}"
+  vars:
+    query: "[?guest_name=='PXE01']"
 
 - name: Get UUID from given VM Name
   block:

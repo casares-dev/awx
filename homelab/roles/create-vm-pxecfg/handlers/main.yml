@@ -7,3 +7,13 @@
     validate_certs: no
     name: "{{ new_vm_name }}"
     state: poweredon
+
+- name: restart dnsmasq
+  service:
+    name: dnsmasq
+    state: restarted
+
+- name: restart apache
+  service:
+    name: httpd
+    state: restarted

@@ -75,5 +75,5 @@
 
 - name: wait for installation to finish
   wait_for_connection:
-    timeout: 900
+    timeout: 600
   delegate_to: "{{ new_vm_name }}"

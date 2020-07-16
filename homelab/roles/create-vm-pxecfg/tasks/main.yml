@@ -53,4 +53,3 @@
     msg: "Configuration on PXE01 complete"
   notify:
     - power on vm
-  delegate_to: localhost

@@ -6,6 +6,6 @@
   hosts: PXE01
   template:
     src: pxecfg.j2
-    dest: "/var/lib/tftpboot/pxeboot.cfg/01-{{ deploy_vm.virtual_machines[new_vm_name].mac_address"
+    dest: "/var/lib/tftpboot/pxeboot.cfg/01-{{ new_vm_pxe_mac }}"
   notify:
     - power on vm

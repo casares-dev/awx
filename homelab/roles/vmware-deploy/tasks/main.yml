@@ -51,8 +51,6 @@
 - name: create pxe config file for the vm
   include_role:
     name: create-vm-pxecfg
-  notify:
-    - power on vm
 
 - name: change vm boot order back for post-install
   vmware_guest_boot_manager:

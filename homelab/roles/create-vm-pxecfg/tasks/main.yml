@@ -1,4 +1,9 @@
 ---
+
+- name: include PXE01 vars
+  include_vars:
+    file: roles/pxeboot/vars/main.yml
+
 - name: print vm facts
   debug:
     var: new_vm_facts.virtual_machines

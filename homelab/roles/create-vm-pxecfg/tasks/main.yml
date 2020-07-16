@@ -9,7 +9,7 @@
 - name: Get UUID from given VM Name
   block:
     - name: Get virtual machine info
-      vmware_vm_info:
+      vmware_guest_info:
         hostname: "{{ vcenter_hostname }}"
         username: "{{ vcenter_username }}"
         password: "{{ vcenter_password }}"

@@ -1,15 +1,4 @@
 ---
-- name: restart dnsmasq
-  systemd:
-    name: dnsmasq
-    state: restarted
-  delegate_to: PXE01
-
-- name: restart apache
-  systemd:
-    name: httpd
-    state: restarted
-  delegate_to: PXE01
 
 - name: power on vm
   vmware_guest:

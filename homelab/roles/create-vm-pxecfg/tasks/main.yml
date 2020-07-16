@@ -36,15 +36,16 @@
     dest: "/var/lib/tftpboot/pxelinux.cfg/01-{{ new_vm_pxe_mac }}"
   delegate_to: PXE01
 
-- name: restart tftp service
+- name: restart services
   become: yes
   systemd:
-    name: tftp
+    name: "{{ item }}"
     state: restarted
     enabled: yes
-  notify:
-  - restart dnsmasq
-  - restart apache
+  with_items:
+    - dnsmasq
+    - tftp
+    - httpd
   delegate_to: PXE01
 
 - name: finish up

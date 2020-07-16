@@ -18,6 +18,13 @@
 - name: set hostname
   set_fact: machine_hostname="{{ new_vm_name | lower }}.{{ site_domain_name }}"
 
+- name: create custom pxelinux-cfg file
+  template:
+    src: pxecfg.j2
+    dest: "/var/lib/tftpboot/pxelinux.cfg/01-{{ new_vm_pxe_mac }}"
+    backup: yes
+  delegate_to: PXE01
+
 - name: create custom kickstart file
   become: yes
   template:

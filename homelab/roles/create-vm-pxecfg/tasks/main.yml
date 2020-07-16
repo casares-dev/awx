@@ -22,9 +22,9 @@
       register: vm_info
 
     - debug:
-        msg: "{{ item.macaddress_dash }}"
-      with_items:
-        - "{{ vm_info['guest_name'] }}"
+      msg: "{{ item.macaddress_dash }}"
+    with_items:
+      - "{{ vm_info['guest_name'] }}"
 
 - name: get mac address
   set_fact: new_vm_pxe_mac_pre="{{ item.mac_address[0] }}"

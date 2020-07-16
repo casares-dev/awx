@@ -11,7 +11,7 @@
   set_fact: new_vm_pxe_mac="{{ new_vm_facts.virtual_machines[0].mac_address[0] | regex_replace(':', '-') | lower }}"
 
 - name: set hostname
-  set fact: machine_hostname="{{ new_vm_facts.virtual_machines[0].guest_name | lower }}.{{ site_domain_name }}"
+  set_fact: machine_hostname="{{ new_vm_facts.virtual_machines[0].guest_name | lower }}.{{ site_domain_name }}"
 
 - name: create custom kickstart file
   become: yes

@@ -3,6 +3,10 @@
   include_vars:
     file: roles/pxeboot/vars/main.yml
 
+- name: show virtual machine parameters
+  debug:
+    msg: new_vm.facts.virtual_machines
+
 - name: set lowercase mac address
   set_fact: new_vm_pxe_mac="{{ new_vm_facts.virtual_machines[0].mac_address[0] | regex_replace(':', '-') | lower }}"
 
@@ -15,6 +19,7 @@
       src: kickstart.conf.j2
       dest: "/var/www/html/ks/{{ new_vm_name | lower }}.conf"
   delegate_to: PXE01
+  backup: yes
 
 - name: allow apache to modify files
   become: yes

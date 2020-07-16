@@ -13,7 +13,7 @@
 
 - name: can you fucking print it please?
   debug:
-    msg: "{{ new_vm_pxe_mac }}"
+    msg: "{{ new_vm_facts.virtual_machines }}"
 
 - name: set hostname
   set_fact: machine_hostname="{{ new_vm_name | lower }}.{{ site_domain_name }}"

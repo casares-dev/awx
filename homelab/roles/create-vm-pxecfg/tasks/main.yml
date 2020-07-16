@@ -22,7 +22,7 @@
   become: yes
   template:
       src: kickstart.conf.j2
-      dest: "/var/www/html/ks/{{ new_vm_name | lower }}.conf"
+      dest: "/var/www/html/ks/{{ new_vm_name }}.conf"
       backup: yes
   delegate_to: PXE01
 

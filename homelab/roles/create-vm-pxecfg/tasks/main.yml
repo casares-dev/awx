@@ -14,16 +14,17 @@
         username: '{{ vcenter_username }}'
         password: '{{ vcenter_password }}'
         validate_certs: no
+        datacenter: '{{ vmware_datacenter }}'
+        name: "{{ new_vm_name }}"
+        schema: "vsphere"
+        properties: ["config.hardware.macAddress]"
       delegate_to: localhost
       register: vm_info
 
     - debug:
         msg: "{{ item.uuid }}"
       with_items:
-        - "{{ vm_info.virtual_machines | json_query(query) }}"
-      vars:
-        query: "[?guest_name==[new_vm_name]]"
-
+        - "{{ vm_info }}"
 
 - name: get mac address
   set_fact: new_vm_pxe_mac_pre="{{ item.mac_address[0] }}"

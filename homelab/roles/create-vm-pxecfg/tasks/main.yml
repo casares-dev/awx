@@ -9,6 +9,24 @@
 - name: Get UUID from given VM Name
   block:
     - name: Get virtual machine info
+      vmware_vm_info:
+        hostname: '{{ vcenter_hostname }}'
+        username: '{{ vcenter_username }}'
+        password: '{{ vcenter_password }}'
+        folder: "/{{ esxi_datacenter }}/vm/"
+      delegate_to: localhost
+      register: vm_info
+
+    - debug:
+        msg: "{{ item.uuid }}"
+      with_items:
+        - "{{ vm_info.virtual_machines | json_query(query) }}"
+      vars:
+        query: "[?guest_name=='PXE01']"
+
+- name: Get UUID from given VM Name
+  block:
+    - name: Get virtual machine info
       vmware_guest_info:
         hostname: '{{ vcenter_hostname }}'
         username: '{{ vcenter_username }}'

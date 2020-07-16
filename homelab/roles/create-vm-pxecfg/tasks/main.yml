@@ -10,7 +10,7 @@
   debug:
     msg: "{{ item.uuid }}"
   with_items:
-    - "{{ vm_info.virtual_machines | json_query(query) }}"
+    - "{{ deploy_vm.virtual_machines | json_query(query) }}"
   vars:
     query: "[?guest_name=='PXE01']"
 

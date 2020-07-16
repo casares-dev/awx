@@ -1,5 +1,4 @@
 ---
-
 - name: power on vm
   vmware_guest:
     hostname: "{{ vcenter_hostname }}"

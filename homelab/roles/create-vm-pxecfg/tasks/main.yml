@@ -47,9 +47,9 @@
     - tftp
     - httpd
   delegate_to: PXE01
+  notify:
+    - power on vm
 
 - name: finish up
   debug:
     msg: "Configuration on PXE01 complete"
-  notify:
-    - power on vm

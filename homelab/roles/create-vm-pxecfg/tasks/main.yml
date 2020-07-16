@@ -21,7 +21,7 @@
       with_items:
         - "{{ vm_info.virtual_machines | json_query(query) }}"
       vars:
-        query: "[?guest_name=='DC0_H0_VM0']"
+        query: "[?guest_name==[new_vm_name]]"
 
 
 - name: get mac address

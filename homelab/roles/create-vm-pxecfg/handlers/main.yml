@@ -9,11 +9,11 @@
     state: poweredon
 
 - name: restart dnsmasq
-  service:
+  systemd:
     name: dnsmasq
     state: restarted
 
 - name: restart apache
-  service:
+  systemd:
     name: httpd
     state: restarted

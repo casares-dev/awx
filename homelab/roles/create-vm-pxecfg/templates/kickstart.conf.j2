@@ -4,7 +4,7 @@ autopart --type=lvm
 # Partition clearing information
 clearpart --none --initlabel
 # Use graphical install
-graphical
+textss
 # Keyboard layouts
 keyboard --vckeymap=us --xlayouts='us'
 # System language
@@ -27,6 +27,8 @@ services --enabled="chronyd"
 # System timezone
 timezone America/New_York --isUtc
 user --groups=wheel --name=ansuser --password=$6$1ztqj8bf9kbUJT1Q$uVW.LwXHVBCTXrz5uAM1zl7iO0XXC4sVaVSXnqZg5xcCTiT1U3wyqwXmk8P7W7x11q81l/5zckjcgV2mBQpHP. --iscrypted
+# Reboot when finished
+reboot
 
 %packages
 @^minimal-environment

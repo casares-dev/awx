@@ -13,7 +13,7 @@
         hostname: '{{ vcenter_hostname }}'
         username: '{{ vcenter_username }}'
         password: '{{ vcenter_password }}'
-        folder: "/{{ esxi_datacenter }}/vm/"
+        folder: "/{{ vmware_datacenter }}/vm/"
       delegate_to: localhost
       register: vm_info
 

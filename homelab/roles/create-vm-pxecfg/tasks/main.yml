@@ -16,7 +16,7 @@
 - name: create custom kickstart file
   become: yes
   template:
-      src: kickstart.ks.j2
+      src: kickstart.conf.j2
       dest: "/var/www/html/ks/{{ new_vm_name }}.ks"
   delegate_to: PXE01
 

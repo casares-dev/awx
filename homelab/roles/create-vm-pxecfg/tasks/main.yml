@@ -6,27 +6,15 @@
 #- name: set lowercase mac address
 # set_fact: new_vm_pxe_mac="{{ new_vm_facts.virtual_machines[0].mac_address[0] | regex_replace(':', '-') | lower }}"
 
-- name: Get UUID from given VM Name
-  debug:
-    msg: "{{ item.uuid }}"
-  with_items:
-    - "{{ deploy_vm.virtual_machines | json_query(query) }}"
-  vars:
-    query: "[?guest_name=='PXE01']"
-
 - name: get mac address
-  set_fact: new_vm_pxe_mac_pre="{{ item.mac_address[0] }}"
-  with_items:
-    - "{{ new_vm_facts.virtual_machines | json_query(query) }}"
-  vars:
-    query: "[?guest_name==[new_vm_name]]"
+  set_fact: new_vm_pxe_mac_pre="{{ new_vm_facts.virtual_machines | dict2items }}"
 
-- name: reformat mac address
-  set_fact: new_vm_pxe_mac="{{ new_vm_pxe_mac_pre | regex_replace(':', '-') | lower }}"
-
-- name: can you fucking print it please?
+  - name: print vm with_items
   debug:
     msg: "{{ new_vm_facts.virtual_machines }}"
+
+- name: reformat mac address
+  set_fact: new_vm_pxe_mac="{{ new_vm_pxe_mac_pre[new_vm_name].mac_address[0] | regex_replace(':', '-') | lower }}"
 
 - name: set hostname
   set_fact: machine_hostname="{{ new_vm_name | lower }}.{{ site_domain_name }}"

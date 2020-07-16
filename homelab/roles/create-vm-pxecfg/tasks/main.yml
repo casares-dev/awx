@@ -1,7 +1,4 @@
 ---
-- include_vars:
-  - new_vm_facts
-
 - name: set lowercase mac address
   set_fact: new_vm_pxe_mac="{{ new_vm_facts[new_vm_name].mac_address | regex_replace(':', '-'") | lower }}"
 

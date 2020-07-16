@@ -6,8 +6,8 @@
 #- name: set lowercase mac address
 # set_fact: new_vm_pxe_mac="{{ new_vm_facts.virtual_machines[0].mac_address[0] | regex_replace(':', '-') | lower }}"
 
-- name: set lowercase mac address
-  set_fact: new_vm_pxe_mac="{{ item.mac_address[0]}}"
+- name: get mac address
+  set_fact: new_vm_pxe_mac="{{ item.mac_address[0] | lower }}"
   with_items:
     - "{{ new_vm_facts.virtual_machines | json_query(query) }}"
   vars:

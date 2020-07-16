@@ -7,11 +7,14 @@
 # set_fact: new_vm_pxe_mac="{{ new_vm_facts.virtual_machines[0].mac_address[0] | regex_replace(':', '-') | lower }}"
 
 - name: get mac address
-  set_fact: new_vm_pxe_mac="{{ item.mac_address | json_query(query) | regex_replace(':', '-') | lower }}"
+  set_fact: new_vm_pxe_mac_pre="{{ item.mac_address | json_query(query) }}"
   with_items:
     - "{{ new_vm_facts.virtual_machines | json_query(query) }}"
   vars:
     query: "[?guest_name==[ new_vm_name ] ]"
+
+- name: reformat mac address
+  set_fact: new_vm_pxe_mac="{{ new_vm_pxe_mac_pre | regex_replace(':', '-') | lower }}"
 
 - name: can you fucking print it please?
   debug:

@@ -1,0 +1,13 @@
+PARTITIONS=da0
+DISTRIBUTIONS="kernel.txz base.txz"
+BSDINSTALL_DISTDIR=/tmp
+BSDINSTALL_DISTSITE=ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/{{ os_maj }}.{{ os_min }}-RELEASE
+
+#!/bin/sh
+echo "Installation complete, running in host system"
+echo "hostname=\"{{ machine_hostname }}\"" >> /etc/rc.conf
+echo "autoboot_delay=\"5\"" >> /boot/loader.conf
+echo "sshd_enable=YES" >> /etc/rc.conf
+echo "Setup done" >> /tmp/log.txt
+echo "Setup done."
+/sbin/reboot

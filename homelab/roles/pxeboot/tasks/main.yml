@@ -23,6 +23,20 @@
     owner: root
   when: isoshare.stat.isdir is not defined
 
+- name: create kickstart web directory
+  file:
+    path: /var/www/html/ks
+    state: directory
+    group: root
+    owner: root
+
+- name: create bsd web directory
+  file:
+    path: /var/www/html/bsd
+    state: directory
+    group: root
+    owner: root
+
 - name: mount iso nfs share
   mount:
     fstype: nfs

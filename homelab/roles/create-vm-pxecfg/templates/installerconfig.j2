@@ -17,7 +17,7 @@ echo "nameserver=\"{{ dns_2 }}" >> /etc/resolv.conf
 echo "Gathering packages and updates..."
 /usr/sbin/freebsd-update fetch install
 /usr/sbin/portsnap fetch extract
-/usr/sbin/pkg install -y wget git curl htop tmux 
+pkg install -y wget git curl htop tmux 
 echo "Setup done" >> /tmp/log.txt
 echo "Setup done."
 /sbin/reboot

@@ -1,33 +1,41 @@
 ---
+- name: register if red hat
+  redhat_subscription:
+    state: present
+    username: "{{ lookup('env', 'REDHAT_USERNAME') }}"
+    password: "{{ lookup('env', 'REDHAT_PASSWORD') }}"
+    auto_attach: true
+  when: os_name == 'RedHat'
+
 - name: update all el packages and enable epel
   yum:
     name: '*'
     state: latest
-  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  when: os_name == 'CentOS' or os_name == 'RedHat'
 
 - name: update all debian packages
   apt:
     name: '*'
     state: latest
-  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+  when: os_name == 'Ubuntu' or os_name == 'Debian'
 
 - name: install and enable epel repo
   yum:
     name: epel-release
     state: present
-  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  when: os_name == 'CentOS' or os_name == 'RedHat'
   
 - name: install common el packages
   yum:
     name: "{{ common_pkgs }}"
     state: latest
-  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  when: os_name == 'CentOS' or os_name == 'RedHat'
 
 - name: install common debian packages
   apt:
     name: "{{ common_pkgs }}"
     state: latest
-  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+  when: os_name == 'Ubuntu' or os_name == 'Debian'
 
 - name: mount nfs shares
   mount:
@@ -44,7 +52,7 @@
   yum:
     name: "{{ ad_pkgs }}"
     state: present
-  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  when: os_name == 'CentOS' or os_name == 'RedHat'
   notify:
     - restart realmd
 
@@ -52,7 +60,7 @@
   apt:
     name: "{{ ad_pkgs }}"
     state: latest
-  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+  when: os_name == 'Ubuntu' or os_name == 'Debian'
 
 - name: Install pexpect using pip
   pip:
@@ -78,7 +86,7 @@
 - name: Add default_domain_suffix to sssd.conf
   lineinfile: 
     dest: /etc/sssd/sssd.conf
-    line: 'default_domain_suffix = {{ domain_name }}'
+    line: 'default_domain_suffix = {{ site_domain_name }}'
     insertafter: '^\[sssd\]'
   notify:
      - restart sssd

@@ -59,13 +59,6 @@
   command: restorecon -irv /var/www/html
   delegate_to: PXE01
 
-- name: create mac file
-  become: yes
-  template:
-    src: pxecfg.j2
-    dest: "/var/lib/tftpboot/pxelinux.cfg/01-{{ new_vm_pxe_mac }}"
-  delegate_to: PXE01
-
 - name: restart services
   become: yes
   systemd:

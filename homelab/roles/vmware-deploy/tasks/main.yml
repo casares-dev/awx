@@ -1,9 +1,9 @@
 ---
 - name: set up new vm
   vmware_guest:
-    hostname: "{{ vcenter_hostname }}"
-    username: "{{ vcenter_username }}"
-    password: "{{ vcenter_password }}"
+    hostname: "{{ VMWARE_HOST }}"
+    username: "{{ VMWARE_USER }}"
+    password: "{{ VMWARE_PASSWORD }}"
     validate_certs: no
     folder: "/{{ vmware_datacenter}}/vm"
     datacenter: "{{ vmware_datacenter }}"
@@ -27,9 +27,9 @@
 
 - name: change vm boot order for pxe
   vmware_guest_boot_manager:
-    hostname: "{{ vcenter_hostname }}"
-    username: "{{ vcenter_username }}"
-    password: "{{ vcenter_password }}"
+    hostname: "{{ VMWARE_HOST }}"
+    username: "{{ VMWARE_USER }}"
+    password: "{{ VMWARE_PASSWORD }}"
     validate_certs: no
     name: "{{ new_vm_name }}"
     boot_order:
@@ -40,9 +40,9 @@
 
 - name: get network adapter settings of virtual machine
   vmware_guest_network:
-    hostname: "{{ vcenter_hostname }}"
-    username: "{{ vcenter_username }}"
-    password: "{{ vcenter_password }}"
+    hostname: "{{ VMWARE_HOST }}"
+    username: "{{ VMWARE_USER }}"
+    password: "{{ VMWARE_PASSWORD }}"
     datacenter: "{{ vmware_datacenter }}"
     validate_certs: no
     name: "{{ new_vm_name }}"
@@ -56,18 +56,18 @@
 
 - name: power on vm
   vmware_guest:
-    hostname: "{{ vcenter_hostname }}"
-    username: "{{ vcenter_username }}"
-    password: "{{ vcenter_password }}"
+    hostname: "{{ VMWARE_HOST }}"
+    username: "{{ VMWARE_USER }}"
+    password: "{{ VMWARE_PASSWORD }}"
     validate_certs: no
     name: "{{ new_vm_name }}"
     state: poweredon
 
 - name: change vm boot order back for post-install
   vmware_guest_boot_manager:
-    hostname: "{{ vcenter_hostname }}"
-    username: "{{ vcenter_username }}"
-    password: "{{ vcenter_password }}"
+    hostname: "{{ VMWARE_HOST }}"
+    username: "{{ VMWARE_USER }}"
+    password: "{{ VMWARE_PASSWORD }}"
     validate_certs: no
     name: "{{ new_vm_name }}"
     boot_order:
@@ -81,6 +81,10 @@
     delay: 300
     timeout: 600
   delegate_to: "{{ machine_ip }}"
+
+- name: add new vm to inventory
+  add_host:
+    hostname: "{{ new_vm_name }}"
 
 - name: gather facts of new vm
   setup:

@@ -7,4 +7,5 @@
 - name: install common-nix role if linux vm
   hosts: "{{ machine_ip }}"
   roles:
-    - common-nix
+    - role: common-nix
+      when: ansible_os_family != "Windows" 

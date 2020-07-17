@@ -19,13 +19,23 @@
 - name: set hostname
   set_fact: machine_hostname="{{ new_vm_name | lower }}.{{ site_domain_name }}"
 
-- name: create custom pxelinux-cfg file
+- name: create custom pxelinux-cfg file for el linux
   become: yes
   template:
-    src: pxecfg.j2
+    src: el-pxecfg.j2
     dest: "/var/lib/tftpboot/pxelinux.cfg/01-{{ new_vm_pxe_mac }}"
     backup: yes
   delegate_to: PXE01
+  when: "{{ os_name }}" == "CentOS" or "{{ os_name }}" == "RedHat"
+
+- name: create custom pxelinux-cfg file for freebsd
+  become: yes
+  template:
+    src: bsd-pxecfg.j2
+    dest: "/var/lib/tftpboot/pxelinux.cfg/01-{{ new_vm_pxe_mac }}"
+    backup: yes
+  delegate_to: PXE01
+  when: "{{ os_name }}" == "FreeBSD"
 
 - name: create custom kickstart file
   become: yes
@@ -34,6 +44,7 @@
       dest: "/var/www/html/ks/{{ new_vm_name }}.conf"
       backup: yes
   delegate_to: PXE01
+  when: "{{ os_name }}" == "CentOS" or "{{ os_name }}" == "RedHat"
 
 - name: allow apache to modify files
   become: yes

@@ -13,7 +13,7 @@ echo "ifconfig_vmx0=\"inet {{ machine_ip }} netmask 255.255.0.0\"" >> /etc/rc.co
 echo "defaultrouter=\"{{ default_gateway }}\"" >> /etc/rc.conf
 echo "Gathering packages and updates..."
 /usr/sbin/freebsd-update fetch install
-/usr/sbin/porsnap fetch extract
+/usr/sbin/portsnap fetch extract
 /usr/sbin/pkg install -y wget git curl htop tmux 
 echo "Setup done" >> /tmp/log.txt
 echo "Setup done."

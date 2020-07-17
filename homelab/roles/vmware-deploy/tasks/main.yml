@@ -85,3 +85,4 @@
 - name: run common-nix role
   include_role:
     name: common-nix
+  delegate_to: "{{ machine_ip }}"

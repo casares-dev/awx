@@ -5,9 +5,16 @@ BSDINSTALL_DISTSITE=ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/{{ os_maj }
 
 #!/bin/sh
 echo "Installation complete, running in host system"
-echo "hostname=\"{{ machine_hostname }}\"" >> /etc/rc.conf
+echo "hostname=\"{{ (new_vm_name | lower) }}\"" >> /etc/rc.conf
 echo "autoboot_delay=\"5\"" >> /boot/loader.conf
 echo "sshd_enable=YES" >> /etc/rc.conf
+/usr/bin/sed -i '/ifconfig/d' /etc/rc.conf
+echo "ifconfig_vmx0=\"inet {{ machine_ip }} netmask 255.255.0.0\"" >> /etc/rc.conf
+echo "defaultrouter=\"{{ default_gateway }}\"" >> /etc/rc.conf
+echo "Gathering packages and updates..."
+/usr/sbin/freebsd-update fetch install
+/usr/sbin/porsnap fetch extract
+/usr/sbin/pkg install -y wget git curl htop tmux 
 echo "Setup done" >> /tmp/log.txt
 echo "Setup done."
 /sbin/reboot

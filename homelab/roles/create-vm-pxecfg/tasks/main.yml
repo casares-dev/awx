@@ -35,7 +35,7 @@
     dest: "/var/lib/tftpboot/pxelinux.cfg/01-{{ new_vm_pxe_mac }}"
     backup: yes
   delegate_to: PXE01
-  when: os_name == 'FreeBSD'
+  when: os_name == 'FreeBSD' or os_name == 'OpenBSD'
 
 - name: create custom kickstart file
   become: yes
@@ -45,6 +45,15 @@
       backup: yes
   delegate_to: PXE01
   when: os_name == 'CentOS' or os_name == 'RedHat'
+
+- name: create custom installerconfig file for bsd-pxecfg.j2
+  become: yes
+  template:
+    src: installerconfig.j2
+    dest: "/var/www/html/bsd/installerconfig"
+    backup: yes
+  delegate_to: PXE01
+  when: os_name == 'FreeBSD' or os_name == 'OpenBSD'
 
 - name: allow apache to modify files
   become: yes

@@ -3,3 +3,8 @@
   hosts: localhost
   roles:
     - vmware-deploy
+
+- name: install common-nix role if linux vm
+  hosts: "{{ machine_ip }}"
+  roles:
+    - common-nix

@@ -8,7 +8,7 @@ LABEL 1
     MENU LABEL ^1) Install FreeBSD
     MENU AUTOBOOT
     MENU DEFAULT
-    KERNEL /data/{{ os_name }}/{{ os_maj }}/{{ os_min }}/boot/kernel/kernel
+    KERNEL memdisk
     APPEND initrd=/data/{{ os_name }}/{{ os_maj }}/{{ os_min }}/boot/pxeboot devfs=nomount
 
 LABEL 2

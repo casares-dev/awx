@@ -80,4 +80,7 @@
   wait_for_connection:
     timeout: 600
   delegate_to: "{{ machine_ip }}"
-  
+
+- name: run common-nix role
+  include_role:
+    name: common-nix

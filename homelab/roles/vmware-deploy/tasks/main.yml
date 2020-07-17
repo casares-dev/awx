@@ -76,16 +76,31 @@
       - ethernet
       - floppy
 
+- name: add new vm to inventory
+  add_host:
+    hostname: "{{ machine_ip }}"
+
 - name: wait for installation to finish
   wait_for_connection:
     delay: 300
     timeout: 600
   delegate_to: "{{ machine_ip }}"
 
-- name: add new vm to inventory
-  add_host:
-    hostname: "{{ new_vm_name }}"
-    groups: VoidLab
+- name: create dns record
+  win_dns_record:
+    name: "{{ machine_hostname }}"
+    type: "A"
+    value: "{{ machine_ip }}"
+    zone: "{{ site_domain_name }}"
+  delegate_to: VDC01
+
+- name: create ptr record
+  win_dns_record:
+    name: "{{ machine_ip }}"
+    type: "PTR"
+    value: "{{ machine_hostname }}"
+    zone: "2.0.10.in-addr.arpa"
+  delegate_to: VDC01
 
 - name: gather facts of new vm
   setup:

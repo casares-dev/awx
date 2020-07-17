@@ -68,17 +68,17 @@
   command: restorecon -irv /var/www/html
   delegate_to: PXE01
 
-- name: restart services
-  become: yes
-  systemd:
-    name: "{{ item }}"
-    state: restarted
-    enabled: yes
-  with_items:
-    - dnsmasq
-    - tftp
-    - httpd
-  delegate_to: PXE01
+#- name: restart services
+#  become: yes
+#  systemd:
+#    name: "{{ item }}"
+#    state: restarted
+#    enabled: yes
+#  with_items:
+#    - dnsmasq
+#    - tftp
+#    - httpd
+#  delegate_to: PXE01
 
 - name: finish up
   debug:

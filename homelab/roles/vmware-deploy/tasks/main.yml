@@ -81,3 +81,7 @@
     delay: 300
     timeout: 600
   delegate_to: "{{ machine_ip }}"
+
+- name: gather facts of new vm
+  setup:
+  delegate_to: "{{ machine_ip }}"

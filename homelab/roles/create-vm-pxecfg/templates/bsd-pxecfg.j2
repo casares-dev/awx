@@ -9,7 +9,7 @@ LABEL 1
     MENU AUTOBOOT
     MENU DEFAULT
     KERNEL memdisk
-    APPEND initrd=/data/{{ os_name }}/{{ os_maj }}/{{ os_min }}/boot/pxeboot devfs=nomount
+    APPEND initrd=/data/{{ os_name }}/{{ os_maj }}/{{ os_min }}/mfsbsd-12.1-RELEASE-amd64.img devfs=nomount
 
 LABEL 2
     MENU LABEL ^2) Boot local hard drive

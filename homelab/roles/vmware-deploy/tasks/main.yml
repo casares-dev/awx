@@ -84,7 +84,8 @@
 
 - name: add new vm to inventory
   add_host:
-    hostname: "{{ machine_ip }}"
+    hostname: "{{ new_vm_name }}"
+    groups: VoidLab
 
 - name: gather facts of new vm
   setup:

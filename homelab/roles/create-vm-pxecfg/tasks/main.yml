@@ -26,7 +26,7 @@
     dest: "/var/lib/tftpboot/pxelinux.cfg/01-{{ new_vm_pxe_mac }}"
     backup: yes
   delegate_to: PXE01
-  when: "{{ os_name }}" == "CentOS" or "{{ os_name }}" == "RedHat"
+  when: os_name == 'CentOS' or os_name == 'RedHat'
 
 - name: create custom pxelinux-cfg file for freebsd
   become: yes
@@ -35,7 +35,7 @@
     dest: "/var/lib/tftpboot/pxelinux.cfg/01-{{ new_vm_pxe_mac }}"
     backup: yes
   delegate_to: PXE01
-  when: "{{ os_name }}" == "FreeBSD"
+  when: os_name == 'FreeBSD'
 
 - name: create custom kickstart file
   become: yes
@@ -44,7 +44,7 @@
       dest: "/var/www/html/ks/{{ new_vm_name }}.conf"
       backup: yes
   delegate_to: PXE01
-  when: "{{ os_name }}" == "CentOS" or "{{ os_name }}" == "RedHat"
+  when: os_name == 'CentOS' or os_name == 'RedHat'
 
 - name: allow apache to modify files
   become: yes

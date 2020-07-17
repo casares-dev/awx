@@ -11,6 +11,9 @@ echo "sshd_enable=YES" >> /etc/rc.conf
 /usr/bin/sed -i '/ifconfig/d' /etc/rc.conf
 echo "ifconfig_vmx0=\"inet {{ machine_ip }} netmask 255.255.0.0\"" >> /etc/rc.conf
 echo "defaultrouter=\"{{ default_gateway }}\"" >> /etc/rc.conf
+echo "search domain {{ site_domain_name }}" >> /etc/resolv.conf
+echo "nameserver=\"{{ dns_1 }}" >> /etc/resolv.conf
+echo "nameserver=\"{{ dns_2 }}" >> /etc/resolv.conf
 echo "Gathering packages and updates..."
 /usr/sbin/freebsd-update fetch install
 /usr/sbin/portsnap fetch extract

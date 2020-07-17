@@ -11,7 +11,7 @@
 
 - name: print vm with_items
   debug:
-    msg: "{{ new_vm_pxe_mac_pre["network_data"]["0"]["mac_addr"] }}"
+    msg: "{{ new_vm_pxe_mac_pre['network_data']['0']['mac_addr'] }}"
 
 - name: reformat mac address
   set_fact: new_vm_pxe_mac="{{ new_vm_pxe_mac_pre['network_data']['0']['mac_addr'] | regex_replace(':', '-') | lower }}"

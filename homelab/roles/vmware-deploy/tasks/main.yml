@@ -84,7 +84,7 @@
 
 - name: add new vm to inventory
   add_host:
-    hostname: "{{ new_vm_name }}"
+    hostname: "{{ machine_ip }}"
 
 - name: gather facts of new vm
   setup:

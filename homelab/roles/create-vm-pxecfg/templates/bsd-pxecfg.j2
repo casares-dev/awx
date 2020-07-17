@@ -9,7 +9,7 @@ LABEL 1
     MENU AUTOBOOT
     MENU DEFAULT
     KERNEL memdisk
-    APPEND initrd=http://{{ pxe_server_ip }}/pxeboot/{{ os_name }}/{{ os_maj }}/{{ os_min }}/FreeBSD-12.1-RELEASE-amd64-memstick.img raw
+    APPEND initrd=data/{{ os_name }}/{{ os_maj }}/{{ os_min }}/FreeBSD-12.1-RELEASE-amd64-memstick.img raw
 
 LABEL 2
     MENU LABEL ^2) Boot local hard drive

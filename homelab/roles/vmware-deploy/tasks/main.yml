@@ -114,7 +114,7 @@
   delegate_to: "{{ machine_ip }}"
 
 - name: restart sssd
-  sytemctl:
+  sytemd:
     name: sssd
     state: restarted
   delegate_to: "{{ machine_ip }}"

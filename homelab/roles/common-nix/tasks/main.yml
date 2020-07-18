@@ -99,7 +99,7 @@
     line: '%{{ ad_admin_group }}        ALL=(ALL)       NOPASSWD: ALL'
 
 - name: add admin ad group to sshd_config
-  command: "echo \"AllowGroups {{ ad_admin_group }}\" >> /etc/ssh/sshd_conf"
+  command: "echo \"AllowGroups {{ ad_admin_group }}\" >> /etc/ssh/sshd_config"
 
 - name: set up krb5
   template:

@@ -2,7 +2,7 @@
 - name: register if red hat
   redhat_subscription:
     state: present
-    activationkey: "f60e0f43f603cc0f"
+    activationkey: "VoidLab-Dev"
     org_id: "11112894"
     force_register: true
     auto_attach: true

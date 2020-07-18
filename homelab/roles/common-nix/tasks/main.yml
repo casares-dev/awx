@@ -105,7 +105,5 @@
     line: '%{{ ad_admin_group }}        ALL=(ALL)       NOPASSWD: ALL'
 
 - name: add admin ad group to sshd_config
-  lineinfile:
-    dest: /etc/ssh/sshd_config
-    insertafter: "^#       ForceCommand"
-    line: "AllowGroups {{ ad_admin_group }}"
+  become: yes
+  command: "echo \"'AllowGroups {{ ad_admin_group }}\" >> /etc/ssh/sshd_conf"

@@ -9,17 +9,17 @@
     state: latest
   when: os_name == 'CentOS' or os_name == 'RedHat'
 
+- name: install epel
+  dnf:
+    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
+    state: present
+  when: os_name == 'CentOS' or os_name == 'RedHat'
+
 - name: update all debian packages
   apt:
     name: '*'
     state: latest
   when: os_name == 'Ubuntu' or os_name == 'Debian'
-
-- name: install and enable epel repo
-  yum:
-    name: epel-release
-    state: present
-  when: os_name == 'CentOS'
 
 - name: install common el packages
   yum:

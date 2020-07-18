@@ -112,3 +112,9 @@
     dest: /etc/krb5.conf
     backup: yes
   delegate_to: "{{ machine_ip }}"
+
+- name: restart sssd
+  sytemctl:
+    name: sssd
+    state: restarted
+  delegate_to: "{{ machine_ip }}"

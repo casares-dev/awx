@@ -4,30 +4,35 @@
   when: os_name == 'RedHat'
 
 - name: update all el packages
+  become: yes
   yum:
     name: '*'
     state: latest
   when: os_name == 'CentOS' or os_name == 'RedHat'
 
 - name: install epel
+  become: yes
   dnf:
     name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
     state: present
   when: os_name == 'CentOS' or os_name == 'RedHat'
 
 - name: update all debian packages
+  become: yes
   apt:
     name: '*'
     state: latest
   when: os_name == 'Ubuntu' or os_name == 'Debian'
 
 - name: install common el packages
+  become: yes
   yum:
     name: "{{ common_pkgs }}"
     state: latest
   when: os_name == 'CentOS' or os_name == 'RedHat'
 
 - name: install common debian packages
+  become: yes
   apt:
     name: "{{ common_pkgs }}"
     state: latest

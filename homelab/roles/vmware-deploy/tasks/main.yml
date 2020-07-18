@@ -118,3 +118,4 @@
     name: sssd
     state: restarted
   delegate_to: "{{ machine_ip }}"
+  when: os_name != "Windows" or os_name != "FreeBSD"

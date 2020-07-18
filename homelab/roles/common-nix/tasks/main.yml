@@ -4,6 +4,7 @@
     state: present
     activationkey: "f60e0f43f603cc0f"
     org_id: "11112894"
+    force_register: true
     auto_attach: true
   when: os_name == 'RedHat'
 

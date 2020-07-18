@@ -105,5 +105,19 @@
     line: '%{{ ad_admin_group }}        ALL=(ALL)       NOPASSWD: ALL'
 
 - name: add admin ad group to sshd_config
-  become: yes
   command: "echo \"'AllowGroups {{ ad_admin_group }}\" >> /etc/ssh/sshd_conf"
+  delegate_to: "{{ machine_ip }}"
+
+- name: set up krb5
+  template:
+    src: krb5.conf.j2
+    dest: /etc/krb5.conf
+    backup: yes
+  delegate_to: "{{ machine_ip }}"
+
+- name: restart sssd
+  systemd:
+    name: sssd
+    state: restarted
+  delegate_to: "{{ machine_ip }}"
+  when: os_name != "Windows" or os_name != "FreeBSD"

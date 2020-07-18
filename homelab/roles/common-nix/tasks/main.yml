@@ -4,35 +4,30 @@
   when: os_name == 'RedHat'
 
 - name: update all el packages
-  become: yes
   dnf:
     name: '*'
     state: latest
   when: os_name == 'CentOS' or os_name == 'RedHat'
 
 - name: install epel
-  become: yes
   dnf:
     name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
     state: present
   when: os_name == 'CentOS' or os_name == 'RedHat'
 
 - name: update all debian packages
-  become: yes
   apt:
     name: '*'
     state: latest
   when: os_name == 'Ubuntu' or os_name == 'Debian'
 
 - name: install common el packages
-  become: yes
   dnf:
     name: "{{ common_pkgs }}"
     state: latest
   when: os_name == 'CentOS' or os_name == 'RedHat'
 
 - name: install common debian packages
-  become: yes
   apt:
     name: "{{ common_pkgs }}"
     state: latest
@@ -49,7 +44,6 @@
     path: /nfs/fs01/shared
 
 - name: get AD packages for el
-  become: true
   dnf:
     name: "{{ ad_pkgs }}"
     state: present
@@ -106,18 +100,15 @@
 
 - name: add admin ad group to sshd_config
   command: "echo \"AllowGroups {{ ad_admin_group }}\" >> /etc/ssh/sshd_conf"
-  delegate_to: "{{ machine_ip }}"
 
 - name: set up krb5
   template:
     src: krb5.conf.j2
     dest: /etc/krb5.conf
     backup: yes
-  delegate_to: "{{ machine_ip }}"
 
 - name: restart sssd
   systemd:
     name: sssd
     state: restarted
-  delegate_to: "{{ machine_ip }}"
   when: os_name != "Windows" or os_name != "FreeBSD"

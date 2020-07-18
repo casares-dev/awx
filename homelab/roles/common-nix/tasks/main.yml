@@ -3,7 +3,7 @@
   command: "/usr/sbin/subscription-manager register --username={{ lookup('env', 'REDHAT_USERNAME') }} --password={{ lookup('env', 'REDHAT_PASSWORD') }} --auto-attach"
   when: os_name == 'RedHat'
 
-- name: update all el packages and enable epel
+- name: update all el packages
   yum:
     name: '*'
     state: latest
@@ -19,7 +19,7 @@
   yum:
     name: epel-release
     state: present
-  when: os_name == 'CentOS' or os_name == 'RedHat'
+  when: os_name == 'CentOS'
   
 - name: install common el packages
   yum:

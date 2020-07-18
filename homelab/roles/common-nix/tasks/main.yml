@@ -2,8 +2,9 @@
 - name: register if red hat
   redhat_subscription:
     state: present
-    activationkey: "VoidLab"
+    activationkey: "f60e0f43f603cc0f"
     org_id: "11112894"
+    auto_attach: true
   when: os_name == 'RedHat'
 
 - name: update all el packages and enable epel

@@ -91,7 +91,7 @@
     insertafter: '^\[sssd\]'
   notify:
      - restart sssd
-     - restart realmd
+ #    - restart realmd
   when: realmd_bound is failed
 
 - name: allow admin ad group logon privileges
@@ -102,4 +102,10 @@
   lineinfile:
     dest: /etc/sudoers
     insertafter: '^%wheel'
-    line: '%{{ ad_admin_group }}        ALL=(ALL)       ALL'
+    line: '%{{ ad_admin_group }}        ALL=(ALL)       NOPASSWD: ALL'
+
+- name: add admin ad group to sshd_config
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    insertafter: "^#       ForceCommand"
+    line: "AllowGroups {{ ad_admin_group }}"

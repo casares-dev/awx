@@ -8,4 +8,5 @@
   hosts: "{{ machine_ip }}"
   roles:
     - role: common-nix
+      become: yes
       when: ansible_os_family != "Windows" 

@@ -92,7 +92,7 @@
     type: "A"
     value: "{{ machine_ip }}"
     zone: "{{ site_domain_name }}"
-  delegate_to: VDC01
+  delegate_to: VDC01.VOID.LAB
 
 - name: create ptr record
   win_dns_record:
@@ -100,7 +100,7 @@
     type: "PTR"
     value: "{{ machine_hostname }}"
     zone: "2.0.10.in-addr.arpa"
-  delegate_to: VDC01
+  delegate_to: VDC01.VOID.LAB
 
 - name: gather facts of new vm
   setup:

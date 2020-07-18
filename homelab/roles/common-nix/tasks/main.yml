@@ -4,7 +4,7 @@
     state: present
     activationkey: "VoidLab-Dev"
     org_id: "11112894"
-    force_register: true
+    pool: '^Red Hat Enterprise Server$'
     auto_attach: true
   when: os_name == 'RedHat'
 

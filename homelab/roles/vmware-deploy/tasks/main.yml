@@ -82,7 +82,7 @@
 
 - name: wait for installation to finish
   wait_for_connection:
-    delay: 300
+    #delay: 300
     timeout: 600
   delegate_to: "{{ machine_ip }}"
 

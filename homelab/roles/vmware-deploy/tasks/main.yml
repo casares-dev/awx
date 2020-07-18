@@ -107,6 +107,7 @@
   delegate_to: "{{ machine_ip }}"
 
 - name: set up krb5
+  become: yes
   template:
     src: krb5.conf.j2
     dest: /etc/krb5.conf
@@ -114,6 +115,7 @@
   delegate_to: "{{ machine_ip }}"
 
 - name: restart sssd
+  become: yes
   systemd:
     name: sssd
     state: restarted

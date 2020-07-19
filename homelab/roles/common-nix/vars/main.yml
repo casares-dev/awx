@@ -2,6 +2,9 @@
 common_pkgs:
   - wget
   - curl
+  - git
+  - unzip
+  - open-vm-tools
   - vim-minimal
   - htop
   - nfs-utils

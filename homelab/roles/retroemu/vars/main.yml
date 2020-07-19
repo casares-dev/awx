@@ -1,0 +1,17 @@
+---
+retroemu_pkgs:
+  - automake
+  - libtool
+  - clang
+  - gcc
+  - libpcap-devel
+  - uml_utilities
+
+retroemu_ports:
+  - 6180/tcp
+  - 6180/udp
+
+retroemu_dirs:
+  - dps8
+  - simh
+  - qemu

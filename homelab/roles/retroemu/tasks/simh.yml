@@ -1,0 +1,18 @@
+---
+- name: clone simh repository
+
+- name: build simh from source
+
+- name: create disks directory
+  file:
+    path: "/opt/emulators/disks/{{ retroemu_dirs }}"
+    state: directory
+
+- name: fetch UNIX v7 disk
+  get_url:
+    url: https://s3.amazonaws.com/eswenson-multics/public/releases/MR12.6f/QuickStart_MR12.6f.zip
+    dest: /opt/emulators/disks/QuickStart_MR12.6f.zip
+
+- name: unzip UNIX v7 disk
+  unzip:
+    src: /

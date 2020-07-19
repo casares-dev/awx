@@ -1,0 +1,48 @@
+---
+- name: fetch libuv for dps8
+  get_url:
+    url: https://github.com/libuv/libuv/archive/v1.x.zip
+    dest: /opt/emulators/dsp8/
+
+- name: unzip libuv
+  unzip:
+    src: /opt/emulators/dps8/v1.x.zip
+    dest: /opt/emulators/dps8/libuv-1.x
+
+- name: run autogen script for libuv
+  command: /bin/sh -C '/opt/emulators/dps8/libuv-1.x/autogen.sh'
+
+- name: configure libuv for compiling
+  command: /bin/sh -C '/opt/emulators/dps8/libuv-1.x/./configure'
+
+- name: make libuv
+  make:
+    chdir: /opt/emulators/dps8/libuv-1.x
+
+- name: make install libuv
+  make:
+    chdir: /opt/emulators/dps8/libuv-1.x
+    target: install
+
+- name: clone dps8 source
+  get_url:
+    url: http://ringzero.wikidot.com/local--files/start/dps8_R2.0_source.tgz
+    dest: /opt/emulators/dsp8/dps8_r2.0_source.tgz
+
+- name: build dps8 from source
+
+- name: link lubuv.so.1 to /lib64
+  file:
+    src: /usr/local/lib/libuv.so.1
+    dest: /lib64/libuv.so.1
+    owner: root
+    group: root
+    state: link
+
+- name: link dps8 binary to /usr/local/bin
+  file:
+    src: /opt/emulators/dps8/dps8m-code/src/dps8/dps8
+    dest: /usr/local/bin/dps8
+    owner: root
+    group: root
+    state: link

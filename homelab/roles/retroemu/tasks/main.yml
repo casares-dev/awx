@@ -1,0 +1,29 @@
+- name: get prerequisite packages
+  yum:
+    name: "{{ retroemu_pkgs }}"
+    state: present
+
+- name: make directory for emulators
+  file:
+    path: "/opt/emulators/{{ retroemu_dirs }}"
+    state: directory
+
+- name: install dps8
+  include_tasks:
+    file: dps8.yml
+
+- name: install simh
+  include_tasks:
+    file: homelab/roles/retroemu/tasks/simh.yml
+
+- name: open firewall ports
+  firewalld:
+    port: "{{ retroemu_ports }}"
+    permanent: yes
+    state: enabled
+
+- name: open firewall for telnet
+  firewalld:
+    service: telnet
+    permanent: yes
+    state: enabled

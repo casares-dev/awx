@@ -101,7 +101,3 @@
     value: "{{ machine_hostname }}"
     zone: "2.0.10.in-addr.arpa"
   delegate_to: VDC01.VOID.LAB
-
-- name: gather facts of new vm
-  setup:
-  delegate_to: "{{ machine_ip }}"

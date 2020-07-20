@@ -1,0 +1,21 @@
+---
+- name: Add ESXi license and assign to the ESXi host
+  vcenter_license:
+    hostname: '{{ vcenter_hostname }}'
+    username: '{{ vcenter_username }}'
+    password: '{{ vcenter_password }}'
+    esxi_hostname: '{{ esxi_hostname }}'
+    license: "{{ vcenter_license }}"
+    state: present
+  delegate_to: localhost
+
+- name: Copy ISOs to datastore
+  vsphere_copy:
+    hostname: '{{ vcenter_hostname }}'
+    username: '{{ vcenter_username }}'
+    password: '{{ vcenter_password }}'
+    src: "{{ local_iso_path }}/{{ vcenter_isos }}"
+    datacenter: "{{ vmware_datacenter }}"
+    datastore: "{{ vwmare_datastore }}"
+    path: "{{ datastore_iso_path }}"
+  delegate_to: localhost

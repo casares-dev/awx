@@ -1,0 +1,9 @@
+---
+vcenter_hostname: 
+vcenter_username:
+vcenter_password:
+vcenter_license: 0A0FF-403EN-RZ848-ZH3QH-2A73P
+vmware_datacenter:
+vmware_datastore:
+esxi_hostname:
+esxi_license: JV425-4H100-VZHH8-Q23NP-3A9PP

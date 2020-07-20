@@ -1,8 +1,23 @@
 ---
 - name: clone simh repository
+  git:
+    repo: https://github.com/simh/simh.git
+    dest: /opt/emulators/simh
 
 - name: build simh from source
+  make:
+    chdir: /opt/emulators/simh/BIN/
+    target: pdp11
+    params:
+      USE_NETWORK: 1
+      LPATH: /usr/lib:/usr/local/lib
 
+- name: link pdp11 binary to /usr/local/bin
+  file:
+    src: /opt/emulators/simh/BIN/pdp11
+    dest: /usr/local/bin/pdp11
+    state: link
+      
 - name: create disks directory
   file:
     path: "/opt/emulators/disks/{{ retroemu_dirs }}"
@@ -15,4 +30,6 @@
 
 - name: unzip UNIX v7 disk
   unzip:
-    src: /
+    src: /opt/emulators/disks/QuickStart_MR12.6f.zip
+    dest: /opt/emulators/disks/simh
+

@@ -73,5 +73,4 @@
   hosts: rhcsa_lab
   become: true
   roles:
-    - rhcsa
     - common-nix

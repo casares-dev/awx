@@ -12,9 +12,13 @@
   include_tasks:
     file: dps8.yml
 
-- name: install simh
+- name: install simh & compile pdp11
   include_tasks:
     file: homelab/roles/retroemu/tasks/simh.yml
+
+- name: configure qemu and Mac OS 9.2
+  include_tasks:
+    file: homelab/roles/retroemu/tasks/qemu.yml
 
 - name: open firewall ports
   firewalld:
@@ -27,3 +31,8 @@
     service: telnet
     permanent: yes
     state: enabled
+
+- name: reload firewalld
+  systemd:
+    name: firewalld
+    state: reloaded

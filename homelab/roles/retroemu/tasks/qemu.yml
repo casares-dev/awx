@@ -7,9 +7,9 @@
 
 - name: configure qemu for compiling
   shell: "{{ item }}"
-  creates: "/usr/bin/qemu-img"
   args:
     chdir: /opt/emulators/qemu/
+    creates: "/usr/bin/qemu-img"
   with_items:
     - ./configure
     - make

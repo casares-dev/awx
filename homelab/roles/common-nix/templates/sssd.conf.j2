@@ -6,6 +6,7 @@ services = nss, pam
 [domain/void.lab]
 ad_domain = {{ site_domain_name }}
 krb5_realm = {{ domain_name_caps }}
+default_domain_suffix = {{ site_domain_name }}
 realmd_tags = manages-system joined-with-adcli
 cache_credentials = True
 id_provider = ad
@@ -14,4 +15,5 @@ default_shell = /bin/bash
 ldap_id_mapping = True
 use_fully_qualified_names = False
 fallback_homedir = /home/%u@%d
+simple_allow_groups = {{ ad_admin_group }}
 access_provider = ad

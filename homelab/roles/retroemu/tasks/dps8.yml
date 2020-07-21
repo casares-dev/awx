@@ -12,18 +12,24 @@
 
 - name: run autogen script for libuv
   command: /bin/sh -C '/opt/emulators/dps8/libuv-1.x/autogen.sh'
+  args:
+    creates: /opt/emulators/dps8/libuv-1.x/Makefile.in
 
 - name: configure libuv for compiling
   command: /bin/sh -C '/opt/emulators/dps8/libuv-1.x/./configure'
+  args:
+    creates: /opt/emulators/dps8/libuv-1.x/Makefile
 
 - name: make libuv
   make:
     chdir: /opt/emulators/dps8/libuv-1.x
+  register: libuv_make
 
 - name: make install libuv
   make:
     chdir: /opt/emulators/dps8/libuv-1.x
     target: install
+  when: libuv_make is not changed
 
 - name: create src directory
   file:
@@ -39,12 +45,10 @@
 - name: build dps8 from source
   make:
     chdir: /opt/emulators/dps8/src
-    params:
-      CROSS: MINGW64
 
 - name: link lubuv.so.1 to /lib64
   file:
-    src: /usr/local/lib/libuv.so.1
+    src: /usr/local/lib/libuv.so.1.0.0
     dest: /lib64/libuv.so.1
     owner: root
     group: root

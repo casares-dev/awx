@@ -1,6 +1,7 @@
 ---
 retroemu_pkgs:
   - automake
+  - make
   - libtool
   - clang
   - gcc

@@ -2,7 +2,7 @@
 - name: add role from awx template
   hosts: "{{ awx_addrole_hosts }}"
   roles:
-    - name: "{{ item }}"
+    - role: "{{ item }}"
       become: yes
   with_items:
     - "{{ awx_addrole_roles }}"

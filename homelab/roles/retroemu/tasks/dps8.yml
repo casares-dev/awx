@@ -4,15 +4,10 @@
     url: https://github.com/libuv/libuv/archive/v1.x.zip
     dest: /opt/emulators/dps8/
 
-- name: create directory for libuv
-  file:
-    path: /opt/emulators/dps8/libuv-1.x
-    state: directory
-
 - name: unzip libuv
   unarchive:
     src: /opt/emulators/dps8/libuv-1.x.zip
-    dest: /opt/emulators/dps8/libuv-1.x
+    dest: /opt/emulators/dps8/
     remote_src: yes
 
 - name: run autogen script for libuv

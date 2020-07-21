@@ -46,9 +46,14 @@
 
 - name: open firewall ports
   firewalld:
-    port: "{{ retroemu_ports }}"
+    port: "{{ item }}"
     permanent: yes
     state: enabled
+  with_items:
+    - 6180/tcp
+    - 6180/udp
+    - 5900/tcp
+    - 5901/tcp
 
 - name: open firewall for telnet
   firewalld:

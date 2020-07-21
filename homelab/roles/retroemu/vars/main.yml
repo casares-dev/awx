@@ -22,8 +22,3 @@ retroemu_pkgs:
 retroemu_ports:
   - 6180/tcp
   - 6180/udp
-
-retroemu_dirs:
-  - dps8
-  - simh
-  - qemu

@@ -6,8 +6,12 @@
 
 - name: make directory for emulators
   file:
-    path: "/opt/emulators/{{ retroemu_dirs }}"
+    path: "/opt/emulators/{{ item }}"
     state: directory
+  with_items:
+    - dps8
+    - simh
+    - qemu
 
 - name: install dps8
   include_tasks:

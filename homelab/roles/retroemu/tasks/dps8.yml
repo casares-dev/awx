@@ -45,6 +45,7 @@
 - name: build dps8 from source
   make:
     chdir: /opt/emulators/dps8/src
+  register: dps8_build
 
 - name: link lubuv.so.1 to /lib64
   file:
@@ -56,7 +57,7 @@
 
 - name: link dps8 binary to /usr/local/bin
   file:
-    src: /opt/emulators/dps8//src/dps8/dps8
+    src: /opt/emulators/dps8/src/dps8/dps8
     dest: /usr/local/bin/dps8
     owner: root
     group: root

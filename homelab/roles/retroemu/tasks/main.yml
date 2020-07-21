@@ -13,6 +13,15 @@
     - simh
     - qemu
 
+- name: create disks directory
+  file:
+    path: "/opt/emulators/disks/{{ item }}"
+    state: directory
+  with_items:
+    - dps8
+    - simh
+    - qemu
+
 - name: install dps8
   include_tasks:
     file: dps8.yml

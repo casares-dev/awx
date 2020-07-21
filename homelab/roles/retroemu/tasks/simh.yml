@@ -17,11 +17,6 @@
     src: /opt/emulators/simh/BIN/pdp11
     dest: /usr/local/bin/pdp11
     state: link
-      
-- name: create disks directory
-  file:
-    path: "/opt/emulators/disks/{{ retroemu_dirs }}"
-    state: directory
 
 - name: fetch UNIX v7 disk
   get_url:

@@ -9,7 +9,7 @@
   git:
     repo: git://git.qemu-project.org/qemu.git
     dest: /opt/emulators/qemu/
-  when: qemu_files.matched > 0
+  when: qemu_files.matched == 0
 
 - name: configure qemu for compiling
   shell: "{{ item }}"

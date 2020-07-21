@@ -35,6 +35,7 @@
 - name: create mac os 9 hd img
   command: /bin/sh -C 'qemu-img create -f qcow2 {{ macos9_hd_img }} {{ macos9_hd_size }}'
   args:
+    chdir: /opt/emulators/disks/qemu
     creates: /opt/emulators/disks/qemu/{{macos9_hd_img}}
 
 - name: copy os 9 install script

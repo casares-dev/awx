@@ -25,11 +25,16 @@
     target: install
 
 - name: clone dps8 source
-  get_url:
-    url: http://ringzero.wikidot.com/local--files/start/dps8_R2.0_source.tgz
-    dest: /opt/emulators/dsp8/dps8_r2.0_source.tgz
+  git:
+    repo: https://gitlab.com/dps8m/dps8m.git
+    dest: /opt/emulators/dsp8/src
+    version: "R2.0"
 
 - name: build dps8 from source
+  make:
+    chdir: /opt/emulators/dps8/src
+    params:
+      CROSS: MINGW64
 
 - name: link lubuv.so.1 to /lib64
   file:
@@ -41,7 +46,7 @@
 
 - name: link dps8 binary to /usr/local/bin
   file:
-    src: /opt/emulators/dps8/dps8m-code/src/dps8/dps8
+    src: /opt/emulators/dps8//src/dps8/dps8
     dest: /usr/local/bin/dps8
     owner: root
     group: root

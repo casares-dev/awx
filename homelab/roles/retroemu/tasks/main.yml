@@ -1,6 +1,7 @@
 - name: get prerequisite packages
   yum:
     name: "{{ retroemu_pkgs }}"
+    enablerepo: PowerTools
     state: present
 
 - name: make directory for emulators

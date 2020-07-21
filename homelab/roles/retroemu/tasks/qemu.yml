@@ -11,7 +11,8 @@
     state: directory
 
 - name: configure qemu for compiling
-  command: /bin/sh -C '/opt/emulators/qemu/./configure'
+  command: /bin/sh -C './configure'
+  chdir: /opt/emulators/qemu/
 
 - name: build qemu
   make:

@@ -33,9 +33,9 @@
     remote_src: yes
 
 - name: create mac os 9 hd img
-  command: /bin/sh -C 'qemu-img create -f qcow2 {{ macos_hd_img }} {{ macos_hd_size }}'
+  command: /bin/sh -C 'qemu-img create -f qcow2 {{ macos9_hd_img }} {{ macos9_hd_size }}'
   args:
-    creates: /opt/emulators/disks/qemu/{{macos_hd_img}}
+    creates: /opt/emulators/disks/qemu/{{macos9_hd_img}}
 
 - name: copy os 9 install script
   template:

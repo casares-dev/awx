@@ -42,7 +42,6 @@
     - size_gb: "{{ vm_disk_size_gb }}"
       type: thin
       datastore: "{{ esxi_datastore }}"
-    disk:
     - size_gb: "{{ vm_disk2_size_gb }}"
       type: thin
       datastore: "{{ esxi_datastore }}"

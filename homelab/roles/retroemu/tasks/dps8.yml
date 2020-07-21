@@ -4,6 +4,11 @@
     url: https://github.com/libuv/libuv/archive/v1.x.zip
     dest: /opt/emulators/dps8/
 
+- name: create directory for libuv
+  file:
+    path: /opt/emulators/dps8/libuv-1.x
+    state: directory
+
 - name: unzip libuv
   unarchive:
     src: /opt/emulators/dps8/v1.x.zip
@@ -24,6 +29,11 @@
   make:
     chdir: /opt/emulators/dps8/libuv-1.x
     target: install
+
+- name: create src directory
+  file:
+    path: /opt/emulators/dps8/src
+    state: directory
 
 - name: clone dps8 source
   git:

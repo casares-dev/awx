@@ -29,7 +29,7 @@
   make:
     chdir: /opt/emulators/dps8/libuv-1.x
     target: install
-  when: libuv_make is not changed
+  when: libuv_make.changed == true
 
 - name: create src directory
   file:

@@ -15,11 +15,11 @@
 
 - name: install simh & compile pdp11
   include_tasks:
-    file: homelab/roles/retroemu/tasks/simh.yml
+    file: simh.yml
 
 - name: configure qemu and Mac OS 9.2
   include_tasks:
-    file: homelab/roles/retroemu/tasks/qemu.yml
+    file: qemu.yml
 
 - name: open firewall ports
   firewalld:

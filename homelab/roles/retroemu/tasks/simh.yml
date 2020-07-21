@@ -29,7 +29,7 @@
     dest: /opt/emulators/disks/QuickStart_MR12.6f.zip
 
 - name: unzip UNIX v7 disk
-  unzip:
+  unarchive:
     src: /opt/emulators/disks/QuickStart_MR12.6f.zip
     dest: /opt/emulators/disks/simh
 

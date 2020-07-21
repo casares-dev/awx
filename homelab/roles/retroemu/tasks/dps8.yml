@@ -5,7 +5,7 @@
     dest: /opt/emulators/dsp8/
 
 - name: unzip libuv
-  unzip:
+  unarchive:
     src: /opt/emulators/dps8/v1.x.zip
     dest: /opt/emulators/dps8/libuv-1.x
 

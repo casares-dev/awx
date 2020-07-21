@@ -8,6 +8,7 @@
 - name: create build directory
   file:
     path: /opt/emulators/qemu/build
+    state: directory
 
 - name: configure qemu for compiling
   command: /bin/sh -C '/opt/emulators/qemu/build/./configure'

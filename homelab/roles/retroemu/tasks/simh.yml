@@ -6,7 +6,7 @@
 
 - name: build simh from source
   make:
-    chdir: /opt/emulators/simh/BIN/
+    chdir: /opt/emulators/simh/
     target: pdp11
     params:
       USE_NETWORK: 1
@@ -20,12 +20,11 @@
 
 - name: fetch UNIX v7 disk
   get_url:
-    url: https://s3.amazonaws.com/eswenson-multics/public/releases/MR12.6f/QuickStart_MR12.6f.zip
-    dest: /opt/emulators/simh
+    url: http://simh.trailing-edge.com/kits/uv7swre.zip
+    dest: /opt/emulators/disks/simh
 
-- name: unzip UNIX v7 disk
+- name: unzip UNIX v7
   unarchive:
-    src: /opt/emulators/simh/QuickStart_MR12.6f.zip
-    dest: /opt/emulators/disks/simh/
+    src: /opt/emulators/disks/simh/uv7swre.zip
+    dest: /opt/emulators/disks/simh
     remote_src: yes
-

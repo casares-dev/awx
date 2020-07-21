@@ -62,3 +62,14 @@
     owner: root
     group: root
     state: link
+
+- name: fetch Multics disk
+  get_url:
+    url: https://s3.amazonaws.com/eswenson-multics/public/releases/MR12.6f/QuickStart_MR12.6f.zip
+    dest: /opt/emulators/simh
+
+- name: unzip Multics disk
+  unarchive:
+    src: /opt/emulators/simh/QuickStart_MR12.6f.zip
+    dest: /opt/emulators/disks/dps8/
+    remote_src: yes

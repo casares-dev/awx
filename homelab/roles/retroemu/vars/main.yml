@@ -29,3 +29,4 @@ retroemu_ports:
 macos9_iso: "macos_921_ppc.iso"
 macos9_hd_img: "macos921.img"
 macos9_hd_size: "5G"
+macos9_mem_mb: 1024

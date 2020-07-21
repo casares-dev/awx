@@ -12,7 +12,7 @@
     guest_id: centos64Guest
     esxi_hostname: "{{ esxi_hostname }}"
     disk:
-    - size_gb: 20
+    - size_gb: "{{ vm_disk_size_gb }}"
       type: thin
       datastore: "{{ esxi_datastore }}"
     hardware:

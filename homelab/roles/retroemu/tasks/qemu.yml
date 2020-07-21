@@ -1,14 +1,19 @@
 ---
-- name: create qemu build directory
-  file:
-    path: /opt/emulators/qemu/build
-    state: directory
 
 - name: get newer qemu source
   git:
     repo: git://git.qemu-project.org/qemu.git
-    dest: /opt/emulators/qemu/build
+    dest: /opt/emulators/qemu/
+
+- name: create build directory
+  file:
+    path: /opt/emulators/qemu/build
+
+- name: configure qemu for compiling
+  command: /bin/sh -C '/opt/emulators/qemu/build/./configure'
 
 - name: build qemu
-
+  make:
+    chdir: /opt/emulators/qemu/build
+    
 ## Needs completed

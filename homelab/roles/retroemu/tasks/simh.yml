@@ -9,7 +9,6 @@
     chdir: /opt/emulators/simh/
     target: pdp11
     params:
-      USE_NETWORK: 1
       LPATH: /usr/lib:/usr/local/lib
 
 - name: link pdp11 binary to /usr/local/bin

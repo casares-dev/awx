@@ -9,4 +9,11 @@
   roles:
     - role: common-nix
       become: yes
-      when: ansible_os_family != "Windows" 
+      when: ansible_os_family != "Windows"
+
+- name: apply additional roles if specified
+  hosts: "{{ machine_ip }}"
+  roles:
+    - role: "{{ additional_roles }}"
+      become: yes
+      when: addtl_roles_selected == "yes"

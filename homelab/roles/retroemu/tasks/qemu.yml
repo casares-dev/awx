@@ -5,18 +5,14 @@
     repo: git://git.qemu-project.org/qemu.git
     dest: /opt/emulators/qemu/
 
-- name: create build directory
-  file:
-    path: /opt/emulators/qemu/build
-    state: directory
-
 - name: configure qemu for compiling
-  command: /bin/sh -C './configure'
-  chdir: /opt/emulators/qemu/
-
-- name: build qemu
-  make:
+  shell: "{{ item }}"
+  creates: "/usr/bin/qemu-img"
+  args:
     chdir: /opt/emulators/qemu/
+  with_items:
+    - ./configure
+    - make
 
 - name: Allow external viewing of VNC
   replace:
@@ -46,10 +42,19 @@
     dest: /opt/emulators/qemu/macos9-boot.sh
     mode: '0755'
 
+- name: link install script to /usr/local/bin
+  file:
+    src: /opt/emulators/qemu/macos9-install.sh
+    dest: /usr/local/bin/macos9-install
+    state: link
+
+- name: link boot script to /usr/local/bin
+  file:
+    src: /opt/emulators/qemu/macos9-boot.sh
+    dest: /usr/local/bin/macos9-boot
+    state: link
+
 - name: restart libvirtd
   systemd:
     service: libvirtd
     state: restarted
-
-    
-## Needs completed

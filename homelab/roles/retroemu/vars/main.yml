@@ -5,11 +5,10 @@ retroemu_pkgs:
   - clang
   - gcc
   - libpcap-devel
-  - uml_utilities
+  - uml-utilities
   - qemu-kvm
   - virt-manager 
   - libvirt 
-  - libvirt-python 
   - libvirt-client 
   - virt-install 
   - virt-viewer
@@ -18,6 +17,7 @@ retroemu_pkgs:
   - pixman-devel 
   - zlib-devel
   - tigervnc-server
+  #- libvirt-python 
 
 retroemu_ports:
   - 6180/tcp

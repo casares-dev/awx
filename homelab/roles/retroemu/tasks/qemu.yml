@@ -1,9 +1,9 @@
 ---
 - name: check for qemu source files before proceeding
   find:
-   paths: /opt/emulators/qemu
-   patterns: "*.*"
-   register: qemu_files
+    paths: /opt/emulators/qemu
+    patterns: "*.*"
+  register: qemu_files
 
 - name: get qemu source
   git:

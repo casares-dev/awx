@@ -32,4 +32,5 @@
   unarchive:
     src: /opt/emulators/disks/QuickStart_MR12.6f.zip
     dest: /opt/emulators/disks/simh
+    remote_src: yes
 

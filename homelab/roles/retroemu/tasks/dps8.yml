@@ -11,7 +11,7 @@
 
 - name: unzip libuv
   unarchive:
-    src: /opt/emulators/dps8/v1.x.zip
+    src: /opt/emulators/dps8/libuv-1-.x.zip
     dest: /opt/emulators/dps8/libuv-1.x
     remote_src: yes
 

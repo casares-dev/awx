@@ -21,11 +21,11 @@
 - name: fetch UNIX v7 disk
   get_url:
     url: https://s3.amazonaws.com/eswenson-multics/public/releases/MR12.6f/QuickStart_MR12.6f.zip
-    dest: /opt/emulators/disks/QuickStart_MR12.6f.zip
+    dest: /opt/emulators/simh
 
 - name: unzip UNIX v7 disk
   unarchive:
-    src: /opt/emulators/disks/QuickStart_MR12.6f.zip
-    dest: /opt/emulators/disks/simh
+    src: /opt/emulators/simh/QuickStart_MR12.6f.zip
+    dest: /opt/emulators/disks/simh/
     remote_src: yes
 

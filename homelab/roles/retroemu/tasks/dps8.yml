@@ -27,7 +27,7 @@
 - name: clone dps8 source
   git:
     repo: https://gitlab.com/dps8m/dps8m.git
-    dest: /opt/emulators/dsp8/src
+    dest: /opt/emulators/dps8/src
     version: "R2.0"
 
 - name: build dps8 from source

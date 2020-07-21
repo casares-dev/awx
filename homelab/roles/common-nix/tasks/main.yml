@@ -79,15 +79,15 @@
   changed_when: false
   ignore_errors: true
 
-- name: Add default_domain_suffix to sssd.conf
-  lineinfile: 
-    dest: /etc/sssd/sssd.conf
-    line: 'default_domain_suffix = {{ site_domain_name }}'
-    insertafter: '^\[sssd\]'
-  notify:
-     - restart sssd
- #    - restart realmd
-  when: realmd_bound is not failed
+#- name: Add default_domain_suffix to sssd.conf
+#  lineinfile: 
+#    dest: /etc/sssd/sssd.conf
+#    line: 'default_domain_suffix = {{ site_domain_name }}'
+#    insertafter: '^\[sssd\]'
+#  notify:
+#     - restart sssd
+#     - restart realmd
+#  when: realmd_bound is not failed
 
 - name: allow admin ad group logon privileges
   command: /bin/bash -c "/usr/sbin/realm permit -g {{ ad_admin_group }}"

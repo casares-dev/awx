@@ -2,7 +2,7 @@
 - name: fetch libuv for dps8
   get_url:
     url: https://github.com/libuv/libuv/archive/v1.x.zip
-    dest: /opt/emulators/dsp8/
+    dest: /opt/emulators/dps8/
 
 - name: unzip libuv
   unarchive:

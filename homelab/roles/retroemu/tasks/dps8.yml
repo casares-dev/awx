@@ -33,18 +33,18 @@
 
 - name: create src directory
   file:
-    path: /opt/emulators/dps8/src
+    path: /opt/emulators/dps8/git
     state: directory
 
 - name: clone dps8 source
   git:
     repo: https://gitlab.com/dps8m/dps8m.git
-    dest: /opt/emulators/dps8/src
+    dest: /opt/emulators/dps8/git
     version: "R2.0"
 
 - name: build dps8 from source
   make:
-    chdir: /opt/emulators/dps8/src
+    chdir: /opt/emulators/dps8/git
   register: dps8_build
 
 - name: link lubuv.so.1 to /lib64
@@ -57,7 +57,7 @@
 
 - name: link dps8 binary to /usr/local/bin
   file:
-    src: /opt/emulators/dps8/src/dps8/dps8
+    src: /opt/emulators/dps8/git/src/dps8/dps8
     dest: /usr/local/bin/dps8
     owner: root
     group: root

@@ -124,6 +124,12 @@
     setype: httpd_sys_rw_content_t
     state: present
 
+- name: Set httpd_use_nfs SELinux boolean
+  seboolean:
+    name: httpd_use_nfs
+    state: yes
+    persistent: yes
+
 - name: apply new SELinux file contexts
   command: restorecon -irv /var/www/html
   notify:

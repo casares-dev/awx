@@ -23,3 +23,9 @@ retroemu_pkgs:
 retroemu_ports:
   - 6180/tcp
   - 6180/udp
+  - 5900/tcp
+  - 5901/tcp
+
+macos9_iso: "macos_921_ppc.iso"
+macos9_hd_img: "macos921.img"
+macos9_hd_size: "5G"

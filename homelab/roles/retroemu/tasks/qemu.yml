@@ -17,5 +17,39 @@
 - name: build qemu
   make:
     chdir: /opt/emulators/qemu/
+
+- name: Allow external viewing of VNC
+  replace:
+    path: /etc/libvirt/qemu.conf
+    regexp: '^#(.*vnc_listen.*)'
+    replace: 'vnc_listen = "0.0.0.0"'
+  
+- name: copy mac os 9 iso
+  copy:
+    src: /nfs/fs01/iso/MacOS9/{{ macos9_iso }}
+    dest: /opt/emulators/disks/qemu/{{ macos9_iso }}
+    remote_src: yes
+
+- name: create mac os 9 hd img
+  command: /bin/sh -C 'qemu-img create -f qcow2 {{ macos_hd_img }} {{ macos_hd_size }}'
+  creates: /opt/emulators/disks/qemu/{{macos_hd_img}}
+
+- name: copy os 9 install script
+  template:
+    src: macos9-install.sh.j2
+    dest: /opt/emulators/qemu/macos9-install.sh
+    mode: '0755'
+
+- name: copy os 9 boot script
+  template:
+    src: macos9-boot.sh.j2
+    dest: /opt/emulators/qemu/macos9-boot.sh
+    mode: '0755'
+
+- name: restart libvirtd
+  systemd:
+    service: libvirtd
+    state: restarted
+
     
 ## Needs completed

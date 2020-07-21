@@ -22,6 +22,16 @@
     - simh
     - qemu
 
+- name: mount iso share
+  mount:
+    fstype: nfs
+    opts: defaults
+    dump: '0'
+    passno: '0'
+    state: mounted
+    src: fs01:/srv/iso
+    path: /nfs/fs01/iso
+
 - name: install dps8
   include_tasks:
     file: dps8.yml

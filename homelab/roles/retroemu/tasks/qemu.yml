@@ -44,6 +44,11 @@
     chdir: /opt/emulators/disks/qemu
     creates: /opt/emulators/disks/qemu/{{macos9_hd_img}}
 
+- name: set permissions on hd img
+  file:
+    path: /opt/emulators/disks/qemu/{{ macos9_hd_img }}
+    mode: '0766'
+
 - name: copy os 9 install script
   template:
     src: macos9-install.sh.j2

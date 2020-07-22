@@ -8,8 +8,8 @@ LABEL 1
     MENU LABEL ^1) Install {{ os_name}} {{ os_maj }}.{{ os_min }}
     MENU AUTOBOOT
     MENU DEFAULT
-    KERNEL /data/{{ os_name }}/{{ os_maj }}/{{ os_min }}/images/pxeboot/vmlinuz
-    APPEND initrd=/data/{{ os_name }}/{{ os_maj }}/{{ os_min }}/images/pxeboot/initrd.img inst.repo=http://{{ pxe_server_ip }}/pxeboot/{{ os_name }}/{{ os_maj }}/{{ os_min }}/ preseed/url=http://{{ pxe_server_ip }}/preseed/{{ new_vm_name }}.cfg
+    KERNEL /data/{{ os_name }}/{{ os_maj }}/{{ os_min }}/install.amd/vmlinuz
+    APPEND initrd=/data/{{ os_name }}/{{ os_maj }}/{{ os_min }}/install.amd/initrd.img preseed/url=http://{{ pxe_server_ip }}/preseed/{{ new_vm_name }}.cfg
  devfs=nomount
 
 LABEL 2

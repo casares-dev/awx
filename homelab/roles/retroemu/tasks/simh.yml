@@ -26,7 +26,7 @@
   get_url:
     url: http://simh.trailing-edge.com/kits/uv7swre.zip
     dest: /opt/emulators/disks/simh
-  register: unix7_download
+  register: unixv7_download
   when: not unixv7_result.stat.exists
 
 - name: unzip UNIX v7

@@ -8,8 +8,8 @@ LABEL 1
     MENU LABEL ^1) Install {{ os_name}} {{ os_maj }}.{{ os_min }}
     MENU AUTOBOOT
     MENU DEFAULT
-    KERNEL data/{{ os_name }}/{{ os_maj }}/{{ os_min }}/debian-installer/amd64/linux
-    APPEND vga=788 initrd=data/{{ os_name }}/{{ os_maj }}/{{ os_min }}/debian-installer/amd64/initrd.gz --- quiet
+    KERNEL debian-installer/amd64/linux
+    APPEND vga=788 debian-installer/amd64/initrd.gz --- quiet
 
 
 LABEL 2

@@ -1,37 +1,12 @@
 ---
-- name: register if red hat
-  command: "/usr/sbin/subscription-manager register --username={{ lookup('env', 'REDHAT_USERNAME') }} --password={{ lookup('env', 'REDHAT_PASSWORD') }} --auto-attach --force"
-  when: os_name == 'RedHat'
-
-- name: update all el packages
-  dnf:
-    name: '*'
-    state: latest
+- name: run tasks for el-based hosts
+  include_tasks:
+    file: el.yml
   when: os_name == 'CentOS' or os_name == 'RedHat'
 
-- name: install epel
-  dnf:
-    name: "epel-release"
-   # name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
-    state: present
-  when: os_name == 'CentOS' or os_name == 'RedHat'
-
-- name: update all debian packages
-  apt:
-    name: '*'
-    state: latest
-  when: os_name == 'Ubuntu' or os_name == 'Debian'
-
-- name: install common el packages
-  dnf:
-    name: "{{ common_pkgs }}"
-    state: latest
-  when: os_name == 'CentOS' or os_name == 'RedHat'
-
-- name: install common debian packages
-  apt:
-    name: "{{ common_pkgs }}"
-    state: latest
+- name: run tasks for debian-based hosts
+  include_tasks:
+    file: deb.yml
   when: os_name == 'Ubuntu' or os_name == 'Debian'
 
 - name: mount nfs shares
@@ -44,53 +19,29 @@
     src: fs01:/srv/shared
     path: /nfs/fs01/shared
 
-- name: get AD packages for el
-  dnf:
-    name: "{{ ad_pkgs }}"
-    state: present
-  when: os_name == 'CentOS' or os_name == 'RedHat'
-  notify:
-    - restart realmd
-
-- name: install AD debian packages
-  apt:
-    name: "{{ ad_pkgs }}"
-    state: latest
-  when: os_name == 'Ubuntu' or os_name == 'Debian'
-
 - name: Install pexpect using pip
   pip:
     name: pexpect
 
 - name: check domain join status
-  command: /bin/bash -c "/usr/sbin/realm list"
+  command: /bin/sh -c "/usr/sbin/realm list"
   register: realm_status
 
 - name: join system to AD
   expect:
-    command: /bin/bash -c "/usr/sbin/realm join --user={{ ad_join_account }} --computer-ou=OU=Linux,OU=Servers,DC={{ domain_name_start }},DC={{ domain_suffix_only }} {{ domain_name }}"
+    command: /bin/sh -c "/usr/sbin/realm join --user={{ ad_join_account }} --computer-ou=OU=Linux,OU=Servers,DC={{ domain_name_start }},DC={{ domain_suffix_only }} {{ domain_name }}"
     responses:
       Password for *: "{{ bind_password }}"
   when: realm_status.stdout == ""
 
 - name: Check if machine is bound
-  shell: /bin/bash -c "realm list | grep sssd"
+  shell: /bin/sh -c "realm list | grep sssd"
   register: realmd_bound
-  changed_when: false
+  changed_when: true
   ignore_errors: true
 
-#- name: Add default_domain_suffix to sssd.conf
-#  lineinfile: 
-#    dest: /etc/sssd/sssd.conf
-#    line: 'default_domain_suffix = {{ site_domain_name }}'
-#    insertafter: '^\[sssd\]'
-#  notify:
-#     - restart sssd
-#     - restart realmd
-#  when: realmd_bound is not failed
-
 - name: allow admin ad group logon privileges
-  command: /bin/bash -c "/usr/sbin/realm permit -g {{ ad_admin_group }}"
+  command: /bin/sh -c "/usr/sbin/realm permit -g {{ ad_admin_group }}"
   when: realmd_bound is not failed
   
 - name: add admin ad group to sudoers
@@ -118,4 +69,3 @@
   systemd:
     name: sssd
     state: restarted
-  when: os_name != "Windows" or os_name != "FreeBSD"

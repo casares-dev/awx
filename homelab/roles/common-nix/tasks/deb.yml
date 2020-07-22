@@ -1,0 +1,26 @@
+---
+- name: update all debian packages
+  apt:
+    name: '*'
+    state: latest
+
+- name: install common debian packages
+  apt:
+    name: "{{ common_pkgs }}"
+    state: latest
+  when: os_name == 'Ubuntu' or os_name == 'Debian'
+
+- name: install debian-specifics pkgs
+  apt:
+    name: "{{ deb_pkgs }}"
+    state: latest
+
+- name: install common AD packages
+  apt:
+    name: "{{ ad_pkgs }}"
+    state: latest
+
+- name: install debian AD packages
+  apt:
+    name: "{{ deb_ad_pkgs }}"
+    state: latest

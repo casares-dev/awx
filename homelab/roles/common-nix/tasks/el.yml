@@ -1,0 +1,30 @@
+---
+- name: register if red hat
+  command: "/usr/sbin/subscription-manager register --username={{ lookup('env', 'REDHAT_USERNAME') }} --password={{ lookup('env', 'REDHAT_PASSWORD') }} --auto-attach --force"
+  when: os_name == 'RedHat'
+
+- name: update all el packages
+  dnf:
+    name: '*'
+    state: latest
+
+- name: install epel
+  dnf:
+    name: "epel-release"
+   # name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
+    state: present
+  
+- name: install common el packages
+  dnf:
+    name: "{{ common_pkgs }}"
+    state: latest
+
+- name: install el specific packages
+  dnf:
+    name: "{{ el_pkgs }}"
+    state: latest
+
+- name: get AD packages for el
+  dnf:
+    name: "{{ ad_pkgs }}"
+    state: present

@@ -1,0 +1,28 @@
+---
+- name: install packages
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items:
+      - deluge
+      - apache2
+
+- name: create deluge user
+
+- name: set ownership of /var/lib/deluge
+
+- name: create deluge systemd service
+
+- name: create deluge-web systemd service
+
+- name: configure apache for reverse proxy
+
+- name: configure firewall
+
+- name: reload firewall
+
+- name: reload systemctl daemons
+
+- name: start and enable deluge
+
+## Needs finishing

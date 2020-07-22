@@ -5,10 +5,17 @@ common_pkgs:
   - git
   - unzip
   - open-vm-tools
-  - vim-minimal
   - htop
-  - nfs-utils
+
+el_pkgs:
+  - vim-minimal
   - python36
+  - nfs-utils
+
+deb_pkgs:
+  - vim-tiny
+  - python3.7
+  - nfs-client
 
 ad_pkgs:
   - realmd
@@ -20,6 +27,11 @@ ad_pkgs:
   - samba-common-tools 
   - krb5-workstation 
   - authselect-compat
+
+deb_ad_pkgs:
+  - sssd-tools
+  - libnss-sss
+  - libpam-sss
 
 ad_admin_group: LinuxAdmins@void.lab
 ad_join_account: Administrator

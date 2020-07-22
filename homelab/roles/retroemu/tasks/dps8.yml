@@ -1,7 +1,7 @@
 ---
 - name: Check libuv zip exists
   stat:
-    path: /opt/emulators/disks/dps8/libuv-1.x.zip
+    path: /opt/emulators/dps8/libuv-1.x.zip
   register: libuv_result
 
 - name: fetch libuv for dps8

@@ -25,12 +25,18 @@
     path: /etc/libvirt/qemu.conf
     regexp: '^#(.*vnc_listen.*)'
     replace: 'vnc_listen = "0.0.0.0"'
+
+- name: Check if OS 9 iso is present
+  stat:
+    path: /opt/emulators/disks/qemu/{{ macos9_iso }}
+  register: os9_iso_result
   
 - name: copy mac os 9 iso
   copy:
     src: /nfs/fs01/iso/MacOS9/{{ macos9_iso }}
     dest: /opt/emulators/disks/qemu/{{ macos9_iso }}
     remote_src: yes
+  when: not os9_iso_result.stat.exists
 
 - name: create mac os 9 hd img
   shell: qemu-img create -f qcow2 {{ macos9_hd_img }} {{ macos9_hd_size }}

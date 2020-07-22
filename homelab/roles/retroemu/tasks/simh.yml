@@ -19,7 +19,7 @@
 
 - name: Check UNIX v7 zip exists
   stat:
-    path: /etc/file.txt
+    path: /opt/emulators/disks/simh/uv7swre.zip
   register: unixv7_result
 
 - name: fetch UNIX v7 disk

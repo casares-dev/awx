@@ -1,14 +1,22 @@
 ---
+- name: Check libuv zip exists
+  stat:
+    path: /opt/emulators/disks/dps8/libuv-1.x.zip
+  register: libuv_result
+
 - name: fetch libuv for dps8
   get_url:
     url: https://github.com/libuv/libuv/archive/v1.x.zip
     dest: /opt/emulators/dps8/
+  when: not libuv_result.stat.exists
+  register: libuv_download
 
 - name: unzip libuv
   unarchive:
     src: /opt/emulators/dps8/libuv-1.x.zip
     dest: /opt/emulators/dps8/
     remote_src: yes
+  when: libuv_download.changed
 
 - name: run autogen script for libuv
   command: /bin/sh -C '/opt/emulators/dps8/libuv-1.x/autogen.sh'
@@ -63,13 +71,21 @@
     group: root
     state: link
 
+- name: Check Multics disk zip exists
+  stat:
+    path: /opt/emulators/disks/simh/QuickStart_MR12.6f.zip
+  register: multics_result
+
 - name: fetch Multics disk
   get_url:
     url: https://s3.amazonaws.com/eswenson-multics/public/releases/MR12.6f/QuickStart_MR12.6f.zip
     dest: /opt/emulators/simh
+  when: not multics_result.stat.exists
+  register: multics_download
 
 - name: unzip Multics disk
   unarchive:
     src: /opt/emulators/simh/QuickStart_MR12.6f.zip
     dest: /opt/emulators/disks/dps8/
     remote_src: yes
+  when: multics_download.changed

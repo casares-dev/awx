@@ -28,6 +28,15 @@
   delegate_to: PXE01
   when: os_name == 'CentOS' or os_name == 'RedHat'
 
+- name: create custom pxelinux-cfg file for debian-based distros
+  become: yes
+  template:
+    src: deb-pxecfg.j2
+    dest: "/var/lib/tftpboot/pxelinux.cfg/01-{{ new_vm_pxe_mac }}"
+    backup: yes
+  delegate_to: PXE01
+  when: os_name == 'Debian' or os_name == "Ubuntu"
+
 - name: create custom pxelinux-cfg file for freebsd
   become: yes
   template:
@@ -40,11 +49,20 @@
 - name: create custom kickstart file
   become: yes
   template:
-      src: kickstart.conf.j2
-      dest: "/var/www/html/ks/{{ new_vm_name }}.conf"
-      backup: yes
+    src: kickstart.conf.j2
+    dest: "/var/www/html/ks/{{ new_vm_name }}.conf"
+    backup: yes
   delegate_to: PXE01
   when: os_name == 'CentOS' or os_name == 'RedHat'
+
+- name: create custom preseed file
+  become: yes
+  template:
+    src: preseed.cfg.j2
+    dest: "/var/www/html/preseed/{{ new_vm_name }}.cfg"
+    backup: yes
+  delegate_to: PXE01
+  when: os_name == 'Debian' or os_name == 'Ubuntu'
 
 - name: create custom installerconfig file for bsd-pxecfg.j2
   become: yes

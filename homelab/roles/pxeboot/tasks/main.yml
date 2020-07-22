@@ -30,6 +30,13 @@
     group: root
     owner: root
 
+- name: create preseed web directory
+  file:
+    path: /var/www/html/preseed
+    state: directory
+    group: root
+    owner: root
+    
 - name: create bsd web directory
   file:
     path: /var/www/html/bsd

@@ -4,7 +4,7 @@ QEMU_PATH="/opt/emulators/qemu"
 DISK_PATH="/opt/emulators/disks/qemu"
 QEMU_PPC_BIN="$QEMU_PATH/ppc-softmmu/qemu-system-ppc"
 
-pushd "$EMU_PATH"
+pushd "$QEMU_PATH"
 "$QEMU_PPC_BIN" -cpu "g4" -M mac99,via=pmu -m {{ macos9_mem_mb }} -hda "$DISK_PATH"/{{ macos9_hd_img }} -netdev user=id=mynet0 -boot c -g 1600x1200x32 -device usb-kbm -device usb-mouse -device sungem,netdev=mynet0 -vnc 0.0.0.0:1
 popd
 

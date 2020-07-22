@@ -8,9 +8,12 @@ LABEL 1
     MENU LABEL ^1) Install {{ os_name}} {{ os_maj }}.{{ os_min }}
     MENU AUTOBOOT
     MENU DEFAULT
-    KERNEL /data/{{ os_name }}/{{ os_maj }}/{{ os_min }}/debian-installer/amd64/linux
-    APPEND initrd=/data/{{ os_name }}/{{ os_maj }}/{{ os_min }}/debian-installer/amd64/initrd.gz -- auto url=http://{{ pxe_server_ip }}/preseed/{{ new_vm_name }}.cfg devfs=nomount
+    KERNEL data/{{ os_name }}/{{ os_maj }}/{{ os_min }}/debian-installer/amd64/linux
+    APPEND vga=788 initrd=data/{{ os_name }}/{{ os_maj }}/{{ os_min }}/debian-installer/amd64/initrd.gz --- quiet
+
 
 LABEL 2
     MENU LABEL ^2) Boot local hard drive
     LOCALBOOT 0
+
+#-- auto url=http://{{ pxe_server_ip }}/preseed/{{ new_vm_name }}.cfg devfs=nomount

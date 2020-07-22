@@ -17,13 +17,21 @@
     dest: /usr/local/bin/pdp11
     state: link
 
+- name: Check UNIX v7 zip exists
+  stat:
+    path: /etc/file.txt
+  register: unixv7_result
+
 - name: fetch UNIX v7 disk
   get_url:
     url: http://simh.trailing-edge.com/kits/uv7swre.zip
     dest: /opt/emulators/disks/simh
+  register: unix7_download
+  when: not unixv7_result.stat.exists
 
 - name: unzip UNIX v7
   unarchive:
     src: /opt/emulators/disks/simh/uv7swre.zip
     dest: /opt/emulators/disks/simh
     remote_src: yes
+  when: unixv7_download.changed

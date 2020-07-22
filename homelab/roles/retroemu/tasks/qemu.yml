@@ -61,12 +61,14 @@
     src: /opt/emulators/qemu/macos9-install.sh
     dest: /usr/local/bin/macos9-install
     state: link
+    mode: '0755'
 
 - name: link boot script to /usr/local/bin
   file:
     src: /opt/emulators/qemu/macos9-boot.sh
     dest: /usr/local/bin/macos9-boot
     state: link
+    mode: '0755'
 
 - name: restart libvirtd
   systemd:

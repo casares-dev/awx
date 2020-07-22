@@ -9,14 +9,18 @@
     url: https://github.com/libuv/libuv/archive/v1.x.zip
     dest: /opt/emulators/dps8/
   when: not libuv_result.stat.exists
-  register: libuv_download
+
+- name: Check libuv unzipped
+  stat:
+    path: /opt/emulators/dps8/libuv-1.x
+  register: libuv_unzipped_result
 
 - name: unzip libuv
   unarchive:
     src: /opt/emulators/dps8/libuv-1.x.zip
     dest: /opt/emulators/dps8/
     remote_src: yes
-  when: libuv_download is succeeded
+  when: not libuv_unzipped_result.stat.exists
 
 - name: run autogen script for libuv
   command: /bin/sh -C '/opt/emulators/dps8/libuv-1.x/autogen.sh'
@@ -81,11 +85,15 @@
     url: https://s3.amazonaws.com/eswenson-multics/public/releases/MR12.6f/QuickStart_MR12.6f.zip
     dest: /opt/emulators/disks/dps8
   when: not multics_result.stat.exists
-  register: multics_download
+ 
+- name: Check Multics disk unzipped
+  stat:
+    path: /opt/emulators/disks/dps8/QuickStart_MR12.6f
+  register: multics_unzipped_result
 
 - name: unzip Multics disk
   unarchive:
     src: /opt/emulators/disks/dps8/QuickStart_MR12.6f.zip
     dest: /opt/emulators/disks/dps8/
     remote_src: yes
-  when: multics_download is succeeded
+  when: not multics_unzipped_result.stat.exists

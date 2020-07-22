@@ -29,9 +29,14 @@
   register: unixv7_download
   when: not unixv7_result.stat.exists
 
+- name: Check UNIX v7 unzipped
+  stat:
+    path: /opt/emulators/disks/simh/unix_v7_rl.dsk
+  register: unixv7_unzipped_result
+
 - name: unzip UNIX v7
   unarchive:
     src: /opt/emulators/disks/simh/uv7swre.zip
     dest: /opt/emulators/disks/simh
     remote_src: yes
-  when: unixv7_download is succeeded
+  when: not unixv7_unzipped_result.stat.exists

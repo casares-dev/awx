@@ -16,7 +16,7 @@
     src: /opt/emulators/dps8/libuv-1.x.zip
     dest: /opt/emulators/dps8/
     remote_src: yes
-  when: libuv_download.changed
+  when: libuv_download is succeeded
 
 - name: run autogen script for libuv
   command: /bin/sh -C '/opt/emulators/dps8/libuv-1.x/autogen.sh'
@@ -88,4 +88,4 @@
     src: /opt/emulators/disks/dps8/QuickStart_MR12.6f.zip
     dest: /opt/emulators/disks/dps8/
     remote_src: yes
-  when: multics_download.changed
+  when: multics_download is succeeded

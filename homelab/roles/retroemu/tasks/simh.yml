@@ -34,4 +34,4 @@
     src: /opt/emulators/disks/simh/uv7swre.zip
     dest: /opt/emulators/disks/simh
     remote_src: yes
-  when: unixv7_download.changed
+  when: unixv7_download is succeeded

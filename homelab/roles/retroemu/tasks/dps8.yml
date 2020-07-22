@@ -73,19 +73,19 @@
 
 - name: Check Multics disk zip exists
   stat:
-    path: /opt/emulators/disks/simh/QuickStart_MR12.6f.zip
+    path: /opt/emulators/disks/dps8/QuickStart_MR12.6f.zip
   register: multics_result
 
 - name: fetch Multics disk
   get_url:
     url: https://s3.amazonaws.com/eswenson-multics/public/releases/MR12.6f/QuickStart_MR12.6f.zip
-    dest: /opt/emulators/simh
+    dest: /opt/emulators/disks/dps8
   when: not multics_result.stat.exists
   register: multics_download
 
 - name: unzip Multics disk
   unarchive:
-    src: /opt/emulators/simh/QuickStart_MR12.6f.zip
+    src: /opt/emulators/disks/dps8/QuickStart_MR12.6f.zip
     dest: /opt/emulators/disks/dps8/
     remote_src: yes
   when: multics_download.changed

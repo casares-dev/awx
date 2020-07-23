@@ -9,7 +9,7 @@ LABEL 1
     MENU AUTOBOOT
     MENU DEFAULT
     KERNEL debian-installer/amd64/linux
-    APPEND vga=788 initrd=debian-installer/amd64/initrd.gz keyboard-configuration/layoutcode=en console-setup/ask_detect=false locale=en_US url=http://{{ pxe_server_ip }}/preseed/{{ new_vm_name }}.cfg
+    APPEND vga=788 initrd=debian-installer/amd64/initrd.gz keyboard-configuration/layoutcode=us console-setup/ask_detect=false locale=en_US url=http://{{ pxe_server_ip }}/preseed/{{ new_vm_name }}.cfg
 
 
 LABEL 2

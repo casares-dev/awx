@@ -1,0 +1,11 @@
+---
+# get packages
+# copy files ( set up github backup? )
+# set permissions
+# install php extensions
+# enable mcrypt php extension -- pecl install mcrypt-1.0.3 -- add extension=mcrypt.so after ;extension=mbstring in /etc/php/7.3/apache2/php.ini
+# enable services
+# set up certbot
+# set up auto-renew for certbot in cron
+
+- name: get packages

@@ -1,0 +1,25 @@
+---
+deb_web_pkgs:
+  - apache2
+  - php
+  - php-xml
+  - php-pear
+  - php-dev
+  - gcc
+  - make
+  - autoconf
+  - libc-dev
+  - pkg-config
+
+deb_pecl_pgks:
+  - mcrypt-1.0.3
+
+dokuwiki_dir: "/var/www/html/wiki/"
+
+dokuwiki_wwwdata_dirs:
+  - data
+  - lib/plugins
+  - lib
+  - lib/tpl
+
+

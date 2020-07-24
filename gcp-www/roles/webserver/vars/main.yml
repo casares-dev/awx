@@ -1,4 +1,8 @@
 ---
+bot_pkgs:
+  - git
+  - python3.7
+
 deb_web_pkgs:
   - apache2
   - php

@@ -2,3 +2,7 @@
 nixctl_pkgs:
   - tmux
   - lolcat
+  - tigervnc-server
+
+domain_admin_userid: "1846601104"
+domain_admin_usergid: "1846600513"

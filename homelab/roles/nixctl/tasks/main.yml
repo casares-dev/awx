@@ -1,5 +1,17 @@
 ---
-- name: install tmux
+- name: install pkgs
   yum:
     name: "{{ nixctl_pkgs }}"
     state: present
+
+- name: create vnc service
+  template:
+    src: vncserver.j2
+    dest: /etc/systemd/system/vncserveer.service
+
+- name: link vnc service
+  file:
+    src: /etc/systemd/system/vncserveer.service
+    dest: "/etc/systemd/system/multi-user.target.wants/vncserver@:1.service"
+    state: link
+

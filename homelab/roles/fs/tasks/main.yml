@@ -1,4 +1,7 @@
 ---
+- name: set up samba + winbind domain join
+# Need to flesh this out. It's necessary for EL8+
+
 - name: create local share admins group
   group:
     name: fsadmins

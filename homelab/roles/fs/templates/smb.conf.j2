@@ -1,49 +1,54 @@
 [global]
-        realm = {{ domain_name }}
-        workgroup = {{ domain_caps }}
-        netbios name = {{ server_hostname_caps }}
+        realm = VOID.LAB
+        workgroup = VOID
+        netbios name = FS01
         security = ads
 
-        log level = 1
+        log level = 2
 
         idmap config *:range = 70001-80000
-        idmap config *:backend = tdbsam
+        idmap config *:backend = autorid
         idmap config void.lab:backend = ad
         idmap config void.lab:schema_mode = rfc2307
-        idmap config void.lab:range = 10000000-299999999 
-
-        winbind nss info = rfc2307
-        winbind enum users = yes
+        idmap config void.lab:range = 10000000-299999999
+        password server = *
+        local master = no
+        domain master = no
+;       wins support = no
+;       wins proxy = no
         winbind enum groups = yes
+        winbind refresh tickets = yes
+        winbind enum users = yes
+        winbind use default domain = yes
+        ntlm auth = yes
         client ntlmv2 auth = yes
-
         vfs objects = acl_xattr
         map acl inherit = yes
+        kerberos method = secrets and keytab
+        template shell = /bin/bash
 
-[bot-data]
-        path = /srv/bot-data
-        comment = Bot Data
+[chad]
+        path = /srv/chad
+        comment = Private Share
         read only = no
         guest ok = no
-        admin users = "{{ ad_admin_users }}"
+        writeable = yes
+        valid users = "VOID\ccasares"
 
 [shared]
         path = /srv/shared
         comment = Shared Data
         read only = no
-        guest ok = yes
-        admin users = "{{ ad_admin_users }}"
-
+        guest ok = no
+        browseable = yes
+        writeable = yes
+        create mode = 665
+        directory mode = 775
+        valid users = "VOID\ccasares"
 [iso]
         path = /srv/iso
         comment = ISO Share
         read only = no
         guest ok = no
-        admin users = "{{ ad_admin_users }}"
-
-[chad]
-        path = /srv/chad
-        commend = My Private Share
-        read only = no
-        guest ok = no
-        admin users = "{{ ad_admin_users }}"
+        writeable = yes
+        valid users = "VOID\ccasares"

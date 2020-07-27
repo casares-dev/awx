@@ -33,7 +33,7 @@ deb_ad_pkgs:
   - libnss-sss
   - libpam-sss
 
-ad_admin_group: LinuxAdmins@void.lab
+ad_admin_group: linuxadmins
 ad_join_account: Administrator
 bind_password: UNIXSyst3m#!
 domain_name_start: void

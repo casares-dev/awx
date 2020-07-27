@@ -19,39 +19,15 @@
     src: fs01:/srv/shared
     path: /nfs/fs01/shared
 
-- name: Install pexpect using pip
-  pip:
-    name: pexpect
+- name: join active directory
+  include_tasks:
+    file: join_ad.yml
+  when: inventory_hostname != "FS01.VOID.LAB"
 
-- name: check domain join status
-  command: /bin/sh -c "/usr/sbin/realm list"
-  register: realm_status
-
-- name: join system to AD
-  expect:
-    command: /bin/sh -c "/usr/sbin/realm join --user={{ ad_join_account }} --computer-ou=OU=Linux,OU=Servers,DC={{ domain_name_start }},DC={{ domain_suffix_only }} {{ domain_name }}"
-    responses:
-      Password for *: "{{ bind_password }}"
-  when: realm_status.stdout == ""
-
-- name: Check if machine is bound
-  shell: /bin/sh -c "realm list | grep sssd"
-  register: realmd_bound
-  changed_when: true
-  ignore_errors: true
-
-- name: allow admin ad group logon privileges
-  command: /bin/sh -c "/usr/sbin/realm permit -g {{ ad_admin_group }}"
-  when: realmd_bound is not failed
-  
-- name: add admin ad group to sudoers
-  lineinfile:
-    dest: /etc/sudoers
-    insertafter: '^%wheel'
-    line: '%{{ ad_admin_group }}        ALL=(ALL)       NOPASSWD: ALL'
-
-- name: add admin ad group to sshd_config
-  command: "echo \"AllowGroups {{ ad_admin_group }}\" >> /etc/ssh/sshd_config"
+- name: join active directory with winbind (for file servers)
+  include_tasks:
+    file: join_ad_winbind.yml
+  when: inventory_hostname == "FS01.VOID.LAB"
 
 - name: set up krb5
   template:

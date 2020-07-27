@@ -1,0 +1,4 @@
+---
+bot_pkgs:
+  - git
+  - python3.7

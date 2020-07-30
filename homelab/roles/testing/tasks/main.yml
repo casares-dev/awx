@@ -1,6 +1,0 @@
----
-- name: poop muhself and update
-  yum:
-    name: '*'
-    state: latest
-  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'

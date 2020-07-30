@@ -34,8 +34,6 @@ deb_ad_pkgs:
   - libpam-sss
 
 ad_admin_group: linuxadmins
-ad_join_account: Administrator
-bind_password: UNIXSyst3m#!
 domain_name_start: void
 domain_suffix_only: lab
 domain_name: void.lab

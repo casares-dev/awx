@@ -10,3 +10,4 @@
       - smb
       - nmb
     state: started
+    enabled: yes

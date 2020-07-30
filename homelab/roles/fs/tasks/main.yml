@@ -57,6 +57,21 @@
   notify:
     - start samba
 
+- name: enable winbind
+  systemd:
+    service: winbind
+    state: started
+    enabled: yes
+
+- name: check domain join status
+  command: /bin/sh -c "/usr/sbin/realm list"
+  register: realm_winbind_status
+
+- name: join to ad with winbind
+  include_tasks:
+    name: join_ad_winbind.yml
+  when: realm_winbind_status.stdout == ""
+
 - name: populate iso share with current isos
   block:
     - name: checking iso folder structure

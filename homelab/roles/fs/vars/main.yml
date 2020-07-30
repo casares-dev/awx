@@ -1,4 +1,9 @@
 ---
+smb_pkgs:
+  - samba
+  - samba-winbind
+  - samba-winbind-clients
+  - authselect
 fs_paths:
   - "/srv/shared"
   - "/srv/iso"

@@ -1,10 +1,4 @@
 ---
-- name: set up samba + winbind domain join
-# Need to flesh this out. It's necessary for EL8+
-
-- name: set up winbind auth
-
-
 - name: create local share admins group
   group:
     name: fsadmins
@@ -54,45 +48,40 @@
     owner: root
     group: root
     backup: yes
-  notify:
-    - start samba
-
-- name: enable winbind
-  systemd:
-    service: winbind
-    state: started
-    enabled: yes
 
 - name: check domain join status
   command: /bin/sh -c "/usr/sbin/realm list"
   register: realm_winbind_status
+  notify:
+    - start samba
+    - start winbind  
 
 - name: join to ad with winbind
   include_tasks:
     name: join_ad_winbind.yml
   when: realm_winbind_status.stdout == ""
 
-- name: populate iso share with current isos
-  block:
-    - name: checking iso folder structure
-      stat:
-       path: "{{ iso_paths }}"
-      register: iso_folder_stats
-    - name: creating directories
-      file:
-       path: "{{ iso_folder_stats.results }}"
-       state: directory
-       mode: '0755'
-       group: root
-       owner: fsadmins
-      when: iso_paths.stat.exists == false
-    - name: download centos-current
-    - name: download redhat-curent
-    - name: download freebsd-current
-    - name: download alpine-current
-    - name: download debian-current
-    - name: download ubuntu-current
-    - name: download openbsd-current
-    - name: download kali-current
-    - name: download windows-current
-    - name: download vmware-current
+#- name: populate iso share with current isos
+#  block:
+#    - name: checking iso folder structure
+#      stat:
+#       path: "{{ iso_paths }}"
+#      register: iso_folder_stats
+#    - name: creating directories
+#      file:
+#       path: "{{ iso_folder_stats.results }}"
+#       state: directory
+#       mode: '0755'
+#       group: root
+#       owner: fsadmins
+#      when: iso_paths.stat.exists == false
+#    - name: download centos-current
+#    - name: download redhat-curent
+#    - name: download freebsd-current
+#    - name: download alpine-current
+#    - name: download debian-current
+#    - name: download ubuntu-current
+#    - name: download openbsd-current
+#    - name: download kali-current
+#    - name: download windows-current
+#    - name: download vmware-current

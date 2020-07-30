@@ -1,13 +1,20 @@
 ---
 - name: start nfs-server
-  service:
-    name: nfs-server
+  systemd:
+    service: nfs-server
     state: started
 
-- nmae: start samba
-  service:
-    name:
-      - smb
-      - nmb
+- name: start samba
+  systemd:
+    service: "{{ item }}"
+    state: started
+    enabled: yes
+  with_items:
+    - smb
+    - nmb
+
+- name: start winbind
+  systemd:
+    service: winbind
     state: started
     enabled: yes

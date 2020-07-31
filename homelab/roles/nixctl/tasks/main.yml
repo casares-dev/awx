@@ -6,8 +6,10 @@
 
 - name: enable repos
   yum:
-    enablerepo: "PowerTools"
-
+    enablerepo: "{{ item }}"
+  with_items:
+    - "PowerTools"
+    - "epel"
 
 - name: install x11
   yum:

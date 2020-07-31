@@ -33,7 +33,7 @@
 
 - name: link vnc service
   file:
-    src: /etc/systemd/system/vncserver.service
+    src: /etc/systemd/system/vncserver@.service
     dest: "/etc/systemd/system/multi-user.target.wants/vncserver@:1.service"
     state: link
 

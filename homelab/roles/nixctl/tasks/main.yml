@@ -4,6 +4,19 @@
     name: "{{ nixctl_pkgs }}"
     state: present
 
+- name: enable repos
+  yum:
+    enablerepo: "PowerTools"
+
+
+- name: install kde
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "@KDE Plasma Workspaces"
+    - "@base-x"
+
 - name: create vnc service
   template:
     src: vncserver.j2
@@ -14,6 +27,11 @@
     src: /etc/systemd/system/vncserver.service
     dest: "/etc/systemd/system/multi-user.target.wants/vncserver@:1.service"
     state: link
+
+- name: create xstartup
+  template:
+    src: xstartup.j2
+    dest: /home/{{ lookup('env', 'AD_USERNAME').split("@")[0] }}/.vnc/xstartup
 
 - name: start vnc service
   systemd:

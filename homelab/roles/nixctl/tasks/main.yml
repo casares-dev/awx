@@ -9,9 +9,14 @@
     enablerepo: "PowerTools"
 
 
-- name: install kde
+- name: install x11
   yum:
-    pkg: ['@base-x','@KDE Plasma Workspaces']
+    pkg: "@base-x"
+    state: present
+
+- name: install kde plasma
+  yum:
+    pkg: "@KDE Plasma Workspaces"
     state: present
 
 - name: create vnc service

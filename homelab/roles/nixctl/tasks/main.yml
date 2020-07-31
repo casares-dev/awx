@@ -18,7 +18,7 @@
 
 - name: install kde plasma
   yum:
-    pkg: "@^kde-desktop-environment
+    pkg: "@^kde-desktop-environment"
     state: present
 
 - name: create vnc service

@@ -20,6 +20,10 @@
   yum:
     name: "@kde-desktop-environment"
     state: present
+    enablerepo: "{{ item }}"
+  with_items:
+    - "epel"
+    - "PowerTools"
 
 - name: create vnc service
   template:

@@ -1,7 +1,7 @@
 ---
 nixctl_pkgs:
   - tmux
-  - lolcat
+  - ruby
   - tigervnc-server
 
 domain_admin_userid: "1846601104"

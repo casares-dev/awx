@@ -51,6 +51,11 @@
     owner: "{{ lookup('env', 'AD_USERNAME').split('@')[0] }}"
     group: "linuxadmins"
 
+- name: create xstartup
+  template:
+    src: xstartup.j2
+    dest: /home/{{ lookup('env', 'AD_USERNAME').split('@')[0] }}/.vnc/xstartup
+
 - name: enable firewall ports
   firewalld:
     port: 5901/tcp
@@ -65,11 +70,6 @@
 - name: reload all daemons
   systemd:
     daemon_reload: yes
-
-- name: create xstartup
-  template:
-    src: xstartup.j2
-    dest: /home/{{ lookup('env', 'AD_USERNAME').split("@")[0] }}/.vnc/xstartup
 
 - name: start vnc service
   systemd:

@@ -4,7 +4,7 @@ After=syslog.target network.target
 
 [Service]
 Type=forking
-WorkingDirectory=/home/{{ domain_admin_user }}@{{ site_domain_name }}
+WorkingDirectory=/home/{{ lookup('env', 'AD_USERNAME').split("@")[0] }}
 User={{ domain_admin_userid }}
 Group={{ domain_admin_usergid }}
 

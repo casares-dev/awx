@@ -41,8 +41,15 @@
   file:
     path: /home/{{ lookup('env', 'AD_USERNAME').split("@")[0] }}/.vnc
     state: directory
-    owner: ccasares
-    group: "domain admins"
+    owner: "{{ lookup('env', 'AD_USERNAME').split('@')[0] }}"
+    group: "linuxadmins"
+
+- name: create .vnc config file
+  template:
+    src: config.j2
+    dest: /home/{{ lookup('env', 'AD_USERNAME').split("@")[0] }}/.vnc/config
+    owner: "{{ lookup('env', 'AD_USERNAME').split('@')[0] }}"
+    group: "linuxadmins"
 
 - name: enable firewall ports
   firewalld:
@@ -54,6 +61,10 @@
   systemd:
     service: firewalld
     state: reloaded
+
+- name: reload all daemons
+  systemd:
+    daemon_reload: yes
 
 - name: create xstartup
   template:

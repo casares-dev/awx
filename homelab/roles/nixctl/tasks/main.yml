@@ -53,5 +53,6 @@
 - name: start vnc service
   systemd:
     service: vncserver@:1
+    
     state: started
     enabled: yes

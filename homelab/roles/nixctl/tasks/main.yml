@@ -37,6 +37,12 @@
     dest: "/etc/systemd/system/multi-user.target.wants/vncserver@:1.service"
     state: link
 
+- name: create home dir and vnc directory
+  file:
+    path: /home/{{ lookup('env', 'AD_USERNAME').split("@")[0] }}/.vnc
+    state: directory
+    
+
 - name: create xstartup
   template:
     src: xstartup.j2

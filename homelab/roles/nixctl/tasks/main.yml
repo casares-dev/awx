@@ -41,6 +41,8 @@
   file:
     path: /home/{{ lookup('env', 'AD_USERNAME').split("@")[0] }}/.vnc
     state: directory
+    owner: ccasares
+    group: "domain admins"
     
 
 - name: create xstartup

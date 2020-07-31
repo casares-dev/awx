@@ -15,3 +15,8 @@
     dest: "/etc/systemd/system/multi-user.target.wants/vncserver@:1.service"
     state: link
 
+- name: start vnc service
+  systemd:
+    service: vncserver@:1
+    state: started
+    enabled: yes

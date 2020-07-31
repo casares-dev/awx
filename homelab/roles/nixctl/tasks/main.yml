@@ -20,6 +20,7 @@
   yum:
     name: "@kde-desktop-environment"
     state: present
+    skip_broken: yes
     enablerepo: "{{ item }}"
   with_items:
     - "epel"

@@ -4,19 +4,21 @@ smb_pkgs:
   - samba-winbind
   - samba-winbind-clients
   - authselect
+fs_root_path: /srv
 fs_paths:
-  - "/srv/shared"
-  - "/srv/iso"
-  - "/srv/chad"
-  - "/srv/bot-data"
+  - shared
+  - iso
+  - chad
+  - bot-data
+iso_root_path: /srv/iso
 iso_paths:
-  - "/srv/iso/centos"
-  - "/srv/iso/redhat"
-  - "/srv/iso/freebsd"
-  - "/srv/iso/alpine"
-  - "/srv/iso/debian"
-  - "/srv/iso/ubuntu"
-  - "/srv/iso/openbsd"
-  - "/srv/iso/kali"
-  - "/srv/iso/windows"
-  - "/srv/iso/vmware"
+  - CentOS
+  - Redhat
+  - FreeBSD
+  - Alpine
+  - Debian
+  - Ubuntu
+  - OpenBSD
+  - Kali
+  - Windows
+  - VMware

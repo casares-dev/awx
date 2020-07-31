@@ -8,15 +8,19 @@
   block:
     - name: checking fs folder structure
       stat:
-       path: "{{ fs_paths }}"
+        path: "{{ item }}"
+      with_items:
+        - "{{ fs_root_path }}/{{ fs_paths }}"
       register: folder_stats
     - name: creating directories
       file:
-       path: "{{ folder_stats.results }}"
-       state: directory
-       mode: 0755
-       group: root
-       owner: fsadmins
+        path: "{{ item }}"
+        state: directory
+        mode: 0755
+        group: root
+        owner: fsadmins
+      with_items:
+        - "{{ fs_root_path }}/{{ fs_paths }}"
       when: fs_paths.stat.exists == false
 
 - name: install nfs-server
@@ -32,8 +36,12 @@
     owner: root
     group: root
     backup: yes
-  notify:
-    - start nfs-server
+
+- name: start nfs-server
+  systemd:
+    service: nfs-server
+    state: started
+    enabled: yes
 
 - name: install samba packages
   yum:
@@ -49,23 +57,28 @@
     group: root
     backup: yes
 
+- name: start samba
+  systemd:
+    service: smb
+    state: started
+    enabled: yes
+
 - name: check domain join status
   command: /bin/sh -c "/usr/sbin/realm list"
   register: realm_winbind_status
-  notify:
-    - start samba
-    - start winbind  
+
 
 - name: join to ad with winbind
   include_tasks:
     name: join_ad_winbind.yml
   when: realm_winbind_status.stdout == ""
 
+
 #- name: populate iso share with current isos
 #  block:
 #    - name: checking iso folder structure
 #      stat:
-#       path: "{{ iso_paths }}"
+#       path: "{{ iso_root_path}}/{{ iso_paths }}"
 #      register: iso_folder_stats
 #    - name: creating directories
 #      file:

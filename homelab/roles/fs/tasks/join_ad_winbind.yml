@@ -11,9 +11,15 @@
     - samba-winbind
     - samba-winbind-clients
 
-- name: join AD via winbind
+- name: join AD
   expect:
     command: /bin/sh -c "/usr/bin/net ads join -U {{ lookup('env', 'AD_USERNAME') }} {{ site_domain_name }}"
     responses:
       Password for *: "{{ lookup('env', 'AD_PASSWORD') }}"
   when: realm_winbind_status.stdout == ""
+
+- name: start winbind
+  systemd:
+    service: winbind
+    state: started
+    enabled: yes

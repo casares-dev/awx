@@ -23,20 +23,3 @@
   include_tasks:
     file: join_ad.yml
   when: inventory_hostname != "FS01.VOID.LAB"
-
-- name: set up krb5
-  template:
-    src: krb5.conf.j2
-    dest: /etc/krb5.conf
-    backup: yes
-
-- name: set up sssd
-  template:
-    src: sssd.conf.j2
-    dest: /etc/sssd/sssd.conf
-    backup: yes
-
-- name: restart sssd
-  systemd:
-    name: sssd
-    state: restarted

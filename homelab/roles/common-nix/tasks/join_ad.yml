@@ -7,6 +7,12 @@
   command: /bin/sh -c "/usr/sbin/realm list"
   register: realm_status
 
+- name: set up krb5
+  template:
+    src: krb5.conf.j2
+    dest: /etc/krb5.conf
+    backup: yes
+
 - name: join system to AD
   expect:
     command: /bin/sh -c "/usr/sbin/realm join --user={{ lookup('env', 'AD_USERNAME') }} --computer-ou=OU=Linux,OU=Servers,DC={{ domain_name_start }},DC={{ domain_suffix_only }} {{ site_domain_name }}"
@@ -20,6 +26,12 @@
   changed_when: true
   ignore_errors: true
 
+- name: set up sssd
+  template:
+    src: sssd.conf.j2
+    dest: /etc/sssd/sssd.conf
+    backup: yes
+
 - name: allow admin ad group logon privileges
   command: /bin/sh -c "/usr/sbin/realm permit -g {{ ad_admin_group }}"
   when: realmd_bound is not failed
@@ -29,6 +41,11 @@
     dest: /etc/sudoers
     insertafter: '^%wheel'
     line: '%{{ ad_admin_group }}        ALL=(ALL)       NOPASSWD: ALL'
+
+- name: restart sssd
+  systemd:
+    name: sssd
+    state: restarted
 
 - name: add admin ad group to sshd_config
   command: "echo \"AllowGroups {{ ad_admin_group }}\" >> /etc/ssh/sshd_config"

@@ -73,6 +73,12 @@
   delegate_to: PXE01
   when: os_name == 'FreeBSD' or os_name == 'OpenBSD'
 
+- name: force httpd_use_nfs bool
+  seboolean:
+    name: httpd_use_nfs
+    state: yes
+    persistent: yes
+
 - name: allow apache to modify files
   become: yes
   sefcontext:

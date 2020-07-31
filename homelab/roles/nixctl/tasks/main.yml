@@ -11,11 +11,8 @@
 
 - name: install kde
   yum:
-    name: "{{ item }}"
+    pkg: ['@KDE Plasma Workspaces', '@base-x']
     state: present
-  with_items:
-    - "@KDE Plasma Workspaces"
-    - "@base-x"
 
 - name: create vnc service
   template:

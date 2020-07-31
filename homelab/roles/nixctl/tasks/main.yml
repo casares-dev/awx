@@ -43,7 +43,17 @@
     state: directory
     owner: ccasares
     group: "domain admins"
-    
+
+- name: enable firewall ports
+  firewalld:
+    port: 5901/tcp
+    state: enabled
+    permanent: yes
+
+- name: reload firewall
+  systemd:
+    service: firewalld
+    state: reloaded
 
 - name: create xstartup
   template:

@@ -9,7 +9,7 @@
 
 - name: join system to AD
   expect:
-    command: /bin/sh -c "/usr/sbin/realm join --user={{ lookup('env', 'AD_USERNAME') }} --computer-ou=OU=Linux,OU=Servers,DC={{ domain_name_start }},DC={{ domain_suffix_only }} {{ domain_name }}"
+    command: /bin/sh -c "/usr/sbin/realm join --user={{ lookup('env', 'AD_USERNAME') }} --computer-ou=OU=Linux,OU=Servers,DC={{ domain_name_start }},DC={{ domain_suffix_only }} {{ site_domain_name }}"
     responses:
       Password for *: "{{ lookup('env', 'AD_PASSWORD') }}"
   when: realm_status.stdout == ""

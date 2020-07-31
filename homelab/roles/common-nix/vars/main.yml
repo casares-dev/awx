@@ -32,8 +32,3 @@ deb_ad_pkgs:
   - sssd-tools
   - libnss-sss
   - libpam-sss
-
-ad_admin_group: linuxadmins
-domain_name_start: void
-domain_suffix_only: lab
-domain_name: void.lab

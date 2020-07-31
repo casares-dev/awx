@@ -29,7 +29,7 @@
 - name: create vnc service
   template:
     src: vncserver.j2
-    dest: /etc/systemd/system/vncserver.service
+    dest: /etc/systemd/system/vncserver@.service
 
 - name: link vnc service
   file:

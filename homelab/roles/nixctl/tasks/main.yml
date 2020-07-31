@@ -11,7 +11,7 @@
 
 - name: install kde
   yum:
-    pkg: ['@KDE Plasma Workspaces', '@base-x']
+    pkg: ['@base-x','@KDE Plasma Workspaces']
     state: present
 
 - name: create vnc service

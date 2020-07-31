@@ -4,14 +4,7 @@
     name: "{{ nixctl_pkgs }}"
     state: present
 
-- name: enable repos
-  yum:
-    enablerepo: "{{ item }}"
-  with_items:
-    - "PowerTools"
-    - "epel"
-
-- name: install x11
+- name: install x-org
   yum:
     name: "@base-x"
     state: present

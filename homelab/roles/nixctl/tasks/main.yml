@@ -13,12 +13,12 @@
 
 - name: install x11
   yum:
-    pkg: "@base-x"
+    name: "@base-x"
     state: present
 
 - name: install kde plasma
   yum:
-    pkg: "@^kde-desktop-environment"
+    name: "@^kde-desktop-environment"
     state: present
 
 - name: create vnc service

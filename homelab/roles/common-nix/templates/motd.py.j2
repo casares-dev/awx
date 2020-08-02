@@ -1,0 +1,8 @@
+#!/bin/python3
+import requests
+import os
+
+response = requests.get("http://artii.herokuapp.com/make?text={{ new_vm_name.split("@")[0] | upper }}")
+motd = open("/etc/motd",'w+')
+writemotd = motd.write(response.content)
+motd.close()

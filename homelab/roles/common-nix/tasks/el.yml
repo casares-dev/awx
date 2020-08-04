@@ -10,12 +10,12 @@
 
 - name: install epel
   dnf:
-    enablerepo: "epel"
-   # name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
+    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
     state: present
   
 - name: install common el packages
   dnf:
+    enablerepo: "epel"
     name: "{{ common_pkgs }}"
     state: latest
 

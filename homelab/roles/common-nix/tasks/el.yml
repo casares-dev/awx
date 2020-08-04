@@ -10,7 +10,7 @@
 
 - name: install epel
   dnf:
-    name: "epel-release"
+    enablerepo: "epel"
    # name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
     state: present
   

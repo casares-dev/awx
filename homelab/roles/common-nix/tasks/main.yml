@@ -24,5 +24,4 @@
     file: join_ad.yml
   when: inventory_hostname != "FS01.VOID.LAB"
 
-- name: generate motd
-  
+#- name: generate motd

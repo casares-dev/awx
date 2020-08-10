@@ -9,3 +9,37 @@
 # set up auto-renew for certbot in cron
 
 - name: get packages
+
+- name: place website files
+  file:
+    src: websitefiles.zip
+    dest: /tmp/websitefiles.zip
+
+- name: unzip website files
+  unzip:
+    src: /tmp/websitefiles.zip
+    dest: "{{ apache_document root}}"
+
+# The following lines depend whether or not I move over to wikimedia or another wiki service
+#- name: install php extensions
+
+#- name: insall mcrypt
+
+#- name: add mcrypt extension to php conf
+
+# Need to figure out how to do this
+#- name: run certbot
+#  acme_certificate:
+
+- name: install crontab for cert renewal
+  cron:
+    hour: "0"
+    minute: "0"
+    day: "15"
+    job: "certbot renew --apache --keep-until-expiring --quiet --agree-tos"
+
+- name: enable and start apache
+  systemd:
+    service: apache2
+    state: started
+    enabled: yes

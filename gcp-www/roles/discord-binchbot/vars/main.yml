@@ -2,3 +2,12 @@
 bot_pkgs:
   - git
   - python3.7
+
+bot_pip_pkgs:
+  - psycopg2-binary
+  - billboard.py
+  - praw
+  - googletrans
+  - uszipcode
+  - smtplib
+  - pytesseract

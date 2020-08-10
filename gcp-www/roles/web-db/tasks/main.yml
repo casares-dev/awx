@@ -1,0 +1,24 @@
+---
+
+- name: install db pkgs
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items:
+    - postgresql-server-dev-11
+
+- name: copy bot database
+  file:
+    src: binchbot.pgsql
+    dest: /var/lib/postgresql
+
+- name: configure db to accept external connections
+  template:
+    src: pgsql-something.j2
+    dest: somewhere.conf
+
+- name: enable and start postgresql
+  systemd:
+    service: postgresql
+    state: started
+    enabled: yes

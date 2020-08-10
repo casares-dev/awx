@@ -1,0 +1,21 @@
+---
+
+- name: create bot dir
+  file:
+    path: /opt/bots
+    state: directory
+
+- name: download prerequisite packages
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items:
+    - python3
+    - cowsay
+
+- name: download source from git
+  git:
+    repo: afkdsa
+    dest: /opt/bots/binch-bot
+
+- name: 

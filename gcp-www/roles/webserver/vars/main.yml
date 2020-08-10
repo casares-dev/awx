@@ -10,11 +10,14 @@ deb_web_pkgs:
   - autoconf
   - libc-dev
   - pkg-config
+  - certbot
 
 deb_pecl_pgks:
   - mcrypt-1.0.3
 
-dokuwiki_dir: "/var/www/html/wiki/"
+apache_document_root: "/var/www/html"
+
+dokuwiki_dir: "{{ apache_document_root }}/wiki/"
 
 dokuwiki_wwwdata_dirs:
   - data

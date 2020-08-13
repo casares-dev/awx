@@ -5,8 +5,7 @@
     - name: checking fs folder structure
       stat:
         path: "{{ item }}"
-      with_items:
-        - "{{ fs_root_path }}/{{ fs_paths }}"
+      with_items: "{{ fs_root_path }}/{{ fs_paths }}"
       register: folder_stats
     - name: creating directories
       file:
@@ -15,8 +14,7 @@
         mode: 0775
         group: root
         owner: fsadmins
-      with_items:
-        - "{{ fs_root_path }}/{{ fs_paths }}"
+      with_items: "{{ fs_root_path }}/{{ fs_paths }}"
       when: fs_paths.stat.exists == false
 
 - name: install nfs-server

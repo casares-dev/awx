@@ -1,8 +1,12 @@
 ---
 - name: add role from awx template
   hosts: "{{ awx_addrole_hosts }}"
-  roles:
-    - name: "{{ item }}"
-      become: yes
-      with_items:
-        - "{{ awx_addrole_roles }}"
+  tasks:
+    - name: iterate through supplied roles
+      include_roles:
+        name: "{{ awx_template_roles }}"
+        become: yes
+        loop:
+          - "{{ awx_addrole_roles }}"
+        loop_control:
+          loop_var: awx_template_roles

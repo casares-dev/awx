@@ -1,8 +1,4 @@
 ---
-- name: create local share admins group
-  group:
-    name: fsadmins
-    state: present
 
 - name: create fs directories
   block:
@@ -16,7 +12,7 @@
       file:
         path: "{{ item }}"
         state: directory
-        mode: 0755
+        mode: 0775
         group: root
         owner: fsadmins
       with_items:

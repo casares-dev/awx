@@ -15,7 +15,6 @@
 
 - name: download source from git
   git:
-    repo: afkdsa
+    repo: https://github.com/casares-dev/binch-bot.git
     dest: /opt/bots/binch-bot
 
-- name: 

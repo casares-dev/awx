@@ -65,8 +65,7 @@
 
 
 - name: join to ad with winbind
-  include_tasks:
-    name: join_ad_winbind.yml
+  include_tasks: join_ad_winbind.yml
   when: realm_winbind_status.stdout == ""
 
 

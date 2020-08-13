@@ -6,7 +6,7 @@
       include_role:
         name: "{{ awx_template_roles }}"
         become: yes
-        loop:
-          - "{{ awx_addrole_roles }}"
-        loop_control:
-          loop_var: awx_template_roles
+      loop:
+        - "{{ awx_addrole_roles }}"
+      loop_control:
+        loop_var: awx_template_roles

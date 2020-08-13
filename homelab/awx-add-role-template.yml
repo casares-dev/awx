@@ -5,7 +5,7 @@
     - name: iterate through supplied roles
       include_role:
         name: "{{ awx_template_roles }}"
-        become: yes
+      become: yes
       loop:
         - "{{ awx_addrole_roles }}"
       loop_control:

@@ -7,7 +7,6 @@
         name: "{{ awx_template_roles }}"
       vars:
         ansible_become: yes
-      loop:
-        - "{{ awx_addrole_roles.split('\n') }}"
+      loop: "{{ awx_addrole_roles.split('\n') }}"
       loop_control:
         loop_var: awx_template_roles

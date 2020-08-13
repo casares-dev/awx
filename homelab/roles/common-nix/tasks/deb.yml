@@ -4,11 +4,10 @@
     name: '*'
     state: latest
 
-- name: install common debian packages
+- name: install common packages
   apt:
     name: "{{ common_pkgs }}"
     state: latest
-  when: os_name == 'Ubuntu' or os_name == 'Debian'
 
 - name: install debian-specifics pkgs
   apt:

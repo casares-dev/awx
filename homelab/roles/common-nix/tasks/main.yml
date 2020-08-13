@@ -2,12 +2,12 @@
 - name: run tasks for el-based hosts
   include_tasks:
     file: el.yml
-  when: os_name == 'CentOS' or os_name == 'RedHat'
+  when: ansible_os_family == 'RedHat'
 
 - name: run tasks for debian-based hosts
   include_tasks:
     file: deb.yml
-  when: os_name == 'Ubuntu' or os_name == 'Debian'
+  when: ansible_os_family == 'Debian'
 
 - name: mount nfs shares
   mount:

@@ -4,10 +4,10 @@
   tasks:
     - name: iterate through supplied roles
       include_role:
-        name: "{{ awx_template_roles.split('\n') }}"
+        name: "{{ awx_template_roles }}"
       vars:
         ansible_become: yes
       loop:
-        - "{{ awx_addrole_roles }}"
+        - "{{ awx_addrole_roles.split('\n') }}"
       loop_control:
         loop_var: awx_template_roles

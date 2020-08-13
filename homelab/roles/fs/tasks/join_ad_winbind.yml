@@ -3,14 +3,6 @@
   pip:
     name: pexpect
 
-- name: install ad packages for winbind join
-  yum:
-    pkg: "{{ item }}"
-    state: present
-  with_items:
-    - samba-winbind
-    - samba-winbind-clients
-
 - name: join AD
   expect:
     command: /bin/sh -c "/usr/bin/net ads join -U {{ lookup('env', 'AD_USERNAME') }} {{ site_domain_name }}"

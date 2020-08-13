@@ -39,8 +39,9 @@
 
 - name: install samba packages
   yum:
-    name: "{{ smb_pkgs }}"
+    name: "{{ item }}"
     state: present
+  with_items: "{{ smb_pkgs }}"
 
 - name: configure samba
   template:
@@ -54,7 +55,7 @@
 - name: update nsswitch.conf
   lineinfile:
     regexp: "{{ item.regexp }}"
-    line:   "{{ item.line   }}"
+    line:   "{{ item.line }}"
     dest: "/etc/nsswitch.conf"
   with_items:
     - { regexp: '^passwd:', line: 'passwd:		sss winbind files' }
@@ -62,9 +63,12 @@
 
 - name: start samba
   systemd:
-    service: smb
+    service: "{{ item }}"
     state: started
     enabled: yes
+  with_items:
+    - smb
+    - nmb
 
 - name: check domain join status
   command: /bin/sh -c "/usr/sbin/realm list"

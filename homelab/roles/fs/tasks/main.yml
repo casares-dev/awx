@@ -61,6 +61,14 @@
     - { regexp: '^passwd:', line: 'passwd:		sss winbind files' }
     - { regexp: '^group:' , line: 'group:		  sss winbind files' }
 
+- name: check domain join status
+  command: /bin/sh -c "/usr/sbin/realm list"
+  register: realm_winbind_status
+
+- name: join to ad with winbind
+  include_tasks: join_ad_winbind.yml
+  when: realm_winbind_status.stdout == ""
+
 - name: start samba
   systemd:
     service: "{{ item }}"
@@ -69,16 +77,6 @@
   with_items:
     - smb
     - nmb
-
-- name: check domain join status
-  command: /bin/sh -c "/usr/sbin/realm list"
-  register: realm_winbind_status
-
-
-- name: join to ad with winbind
-  include_tasks: join_ad_winbind.yml
-  when: realm_winbind_status.stdout == ""
-
 
 #- name: populate iso share with current isos
 #  block:

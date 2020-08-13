@@ -3,7 +3,9 @@ smb_pkgs:
   - samba
   - samba-winbind
   - samba-winbind-clients
+  - samba-winbind-modules
   - authselect
+  - sssd-winbind-idmap
 fs_root_path: /srv
 fs_paths:
   - shared

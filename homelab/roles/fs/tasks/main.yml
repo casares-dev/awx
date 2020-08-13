@@ -53,6 +53,15 @@
     group: root
     backup: yes
 
+- name: update nsswitch.conf
+  lineinfile:
+    regexp: "{{ item.regexp }}"
+    line:   "{{ item.line   }}"
+    dest: "/etc/nsswitch.conf"
+  with_items:
+    - { regexp: '^passwd:', line: 'passwd:		sss winbind files' }
+    - { regexp: '^group:' , line: 'group:		  sss winbind files' }
+
 - name: start samba
   systemd:
     service: smb

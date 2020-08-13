@@ -19,7 +19,7 @@
 
 - name: install nfs-server
   yum:
-    name: nfs-server
+    name: nfs-utils
     state: present
 
 - name: configure nfs nfs-server

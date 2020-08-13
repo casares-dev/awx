@@ -4,5 +4,5 @@
   roles:
     - role: "{{ item }}"
       become: yes
-  with_items:
-    - "{{ awx_addrole_roles }}"
+    with_items:
+      - "{{ awx_addrole_roles }}"

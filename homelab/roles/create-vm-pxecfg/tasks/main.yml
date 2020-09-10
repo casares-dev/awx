@@ -79,18 +79,18 @@
 #    state: yes
 #    persistent: yes
 
-- name: allow apache to modify files
-  become: yes
-  sefcontext:
-    target: '/var/www/html(/.*)?'
-    setype: httpd_sys_rw_content_t
-    state: present
-  delegate_to: PXE01
+#- name: allow apache to modify files
+#  become: yes
+#  sefcontext:
+#    target: '/var/www/html(/.*)?'
+#    setype: httpd_sys_rw_content_t
+#    state: present
+#  delegate_to: PXE01
 
-- name: apply new SELinux file contexts
-  become: yes
-  command: restorecon -irv /var/www/html
-  delegate_to: PXE01
+#- name: apply new SELinux file contexts
+#  become: yes
+#  command: restorecon -irv /var/www/html
+#  delegate_to: PXE01
 
 #- name: restart services
 #  become: yes

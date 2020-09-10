@@ -9,7 +9,7 @@
     datacenter: "{{ vmware_datacenter }}"
     name: "{{ new_vm_name }}"
     state: present
-    guest_id: centos64Guest
+    guest_id: centos8_64Guest
     esxi_hostname: "{{ esxi_hostname }}"
     disk:
     - size_gb: "{{ vm_disk_size_gb }}"
@@ -36,7 +36,7 @@
     datacenter: "{{ vmware_datacenter }}"
     name: "{{ new_vm_name }}"
     state: present
-    guest_id: centos64Guest
+    guest_id: centos8_64Guest
     esxi_hostname: "{{ esxi_hostname }}"
     disk:
     - size_gb: "{{ vm_disk_size_gb }}"

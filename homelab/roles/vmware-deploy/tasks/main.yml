@@ -124,6 +124,11 @@
     value: "{{ machine_ip }}"
     zone: "{{ site_domain_name }}"
   delegate_to: "{{ dns_fqdn_1 }}"
+  vars:
+    ansible_connection: winrm
+    ansible_port: 5986
+    ansible_user: "{{ lookup('env', 'AD_USERNAME') }}"
+    ansible_password: "{{ lookup('env', 'AD_APASSWORD') }}"
 
 - name: create ptr record
   win_dns_record:
@@ -132,3 +137,8 @@
     value: "{{ machine_hostname }}"
     zone: "2.0.10.in-addr.arpa"
   delegate_to: "{{ dns_fqdn_1 }}"
+  vars:
+    ansible_connection: winrm
+    ansible_port: 5986
+    ansible_user: "{{ lookup('env', 'AD_USERNAME') }}"
+    ansible_password: "{{ lookup('env', 'AD_APASSWORD') }}"

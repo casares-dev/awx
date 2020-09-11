@@ -117,6 +117,9 @@
     timeout: 600
   delegate_to: "{{ machine_ip }}"
 
+- name: force ignore winrm cert
+  set_fact: ansible_winrm_server_cert_validation="ignore"
+
 - name: create dns record
   win_dns_record:
     name: "{{ machine_hostname }}"

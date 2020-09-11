@@ -4,6 +4,6 @@ pxe_pkgs:
   - syslinux-tftpboot
   - dnsmasq
   - httpd
-pxe_server_name: pxe01.void.lab
+pxe_server_name: pxe01.casares.lab
 pxe_server_ip: 10.0.2.7
 
